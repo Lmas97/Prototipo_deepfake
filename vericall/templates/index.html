@@ -3,93 +3,56 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VeriCall · Prototipo de decisión</title>
-  <style>
-    :root { font-family: system-ui, sans-serif; color: #17222d; background: #edf3f4; }
-    body { margin: 0; }
-    header { background: #102e3a; color: white; padding: 1.5rem max(1.2rem, calc((100vw - 950px)/2)); }
-    header h1 { margin: 0; font-size: 2rem; }
-    header p { max-width: 750px; color: #d1e8eb; }
-    main { max-width: 950px; margin: 2rem auto; padding: 0 1rem 3rem; display: grid; gap: 1.3rem; }
-    section { background: white; border-radius: 12px; padding: 1.4rem; box-shadow: 0 3px 14px #15384814; }
-    h2 { margin: 0 0 1rem; color: #123b49; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
-    label { display: block; font-weight: 650; margin: .7rem 0 .3rem; }
-    input[type=number], input[type=file], select { width: 100%; box-sizing: border-box; padding: .65rem; border: 1px solid #a7bec5; border-radius: 6px; background: white; }
-    .check { display: flex; align-items: start; gap: .6rem; font-weight: 450; margin: 1rem 0; }
-    .check input { margin-top: .25rem; }
-    button { border: 0; border-radius: 7px; color: white; background: #087d80; padding: .8rem 1.2rem; font-size: 1rem; font-weight: 700; cursor: pointer; }
-    button:hover { background: #075d60; }
-    .note { border-left: 4px solid #c78521; padding: .7rem 1rem; background: #fff8e9; }
-    .error { background: #fff0f0; border-left: 4px solid #b73636; padding: 1rem; }
-    .result { border-left: 5px solid #087d80; }
-    .result.block { border-left-color: #b73636; }
-    .score { font-size: 2rem; font-weight: 800; margin: .5rem 0; }
-    dl { display: grid; grid-template-columns: minmax(130px, 210px) 1fr; gap: .5rem 1rem; }
-    dt { font-weight: 700; } dd { margin: 0; overflow-wrap: anywhere; }
-    code { background: #f1f5f6; padding: .1rem .25rem; }
-    a { color: #066f75; }
-  </style>
+  <meta name="theme-color" content="#102d3a">
+  <title>VeriCall · Análisis de deepfakes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
-  <header>
-    <h1>VeriCall</h1>
-    <p>Demostración local de una decisión de tesorería basada en reglas, calidad de video y trazabilidad.</p>
-  </header>
-  <main>
-    <section>
-      <h2>Evaluar una solicitud ficticia</h2>
-      <p class="note">Los videos incluidos son figuras geométricas sintéticas. Este prototipo <strong>no autentica identidades ni detecta deepfakes</strong>. El campo de verificación alterna representa una declaración del operador, no una llamada comprobada por el sistema.</p>
-      <form action="/assess" method="post" enctype="multipart/form-data">
-        <label for="sample_id">Caso de prueba</label>
-        <select id="sample_id" name="sample_id">
-          {% for case in cases %}<option value="{{ case.id }}">{{ case.label }}</option>{% endfor %}
-          <option value="custom">Cargar mi propio video y datos</option>
-        </select>
-        <div id="custom_fields" hidden>
-          <label for="video">Video AVI o MP4, máximo 25 MB</label>
-          <input id="video" name="video" type="file" accept=".avi,.mp4,video/avi,video/mp4">
-          <div class="grid">
-            <div><label for="amount">Monto solicitado</label><input id="amount" name="amount" type="number" min="0.01" step="0.01" value="500000"></div>
-            <div><label for="limit">Límite del cliente</label><input id="limit" name="limit" type="number" min="0.01" step="0.01" value="1000000"></div>
-          </div>
-          <label class="check"><input name="new_beneficiary" value="yes" type="checkbox">El beneficiario es nuevo</label>
-          <label class="check"><input name="alternate_verified" value="yes" type="checkbox">Declaro que comprobé la identidad por un canal corporativo independiente</label>
-        </div>
-        <label class="check"><input name="consent" value="yes" type="checkbox" required>Declaro tener autorización para procesar este video en la demostración</label>
-        <button type="submit">Analizar video y evaluar</button>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="VeriCall, inicio"><span class="brand-symbol">V</span>VeriCall<span class="version">LAB</span></a>
+  <div class="top-actions"><span id="model-status" class="status"><i></i>Verificando modelo</span><a href="#history">Bitácora ↗</a></div>
+</header>
+<main>
+  <div class="intro"><p class="eyebrow">VERIFICACIÓN VISUAL · DECISIONES TRAZABLES</p><h1>Más evidencia.<br><span>Mejores decisiones.</span></h1><p class="lead">Analiza señales de manipulación facial en un video y revisa su impacto en una solicitud de transferencia.</p></div>
+  <div id="global-error" class="error" role="alert" hidden></div>
+  <div class="workspace">
+    <section class="panel source-panel">
+      <div class="section-title"><span class="step">01</span><h2>Prepara el análisis</h2></div>
+      <form id="analysis-form">
+        <fieldset id="form-fields">
+          <div class="tabs" role="tablist" aria-label="Origen del video"><button type="button" class="active" id="samples-tab" role="tab" aria-selected="true">Ejemplos públicos</button><button type="button" id="upload-tab" role="tab" aria-selected="false">Subir video</button></div>
+          <div id="sample-section"><p class="hint">Compara el original con su versión manipulada.</p><div id="sample-grid" class="sample-grid"></div><p class="source-note">Unidata · <a href="https://huggingface.co/datasets/ud-biometrics/deepfake-dataset" target="_blank" rel="noopener">Ver fuente y licencia ↗</a><br>CC BY-NC-ND 4.0 · Uso no comercial, archivos originales.</p></div>
+          <div id="upload-section" hidden><label class="drop-zone" for="video-file"><span class="upload-icon">↑</span><strong>Selecciona un video</strong><span>MP4, MOV, AVI o WebM · hasta 100 MB / 2 min</span><input id="video-file" type="file" accept=".mp4,.mov,.avi,.webm"></label><p id="filename" class="hint">El archivo se elimina del servidor al terminar.</p></div>
+          <hr>
+          <div class="section-title compact"><span class="step">02</span><h2>Contexto de la transferencia</h2></div>
+          <p class="hint">Estos datos modifican el riesgo del pago, no la detección del video.</p>
+          <div class="input-grid"><label>Monto solicitado<input id="amount" name="amount" type="number" min="0.01" max="1000000000000" step="0.01" value="500000" required></label><label>Límite del cliente<input id="limit" name="limit" type="number" min="0.01" max="1000000000000" step="0.01" value="1000000" required></label></div>
+          <label class="check"><input name="new_beneficiary" type="checkbox" value="yes"><span>La cuenta del beneficiario es nueva</span></label>
+          <label class="check"><input name="alternate_verified" type="checkbox" value="yes"><span>Ya verifiqué la identidad por un canal independiente<small>Declaración manual del analista.</small></span></label>
+          <label class="check consent"><input name="consent" type="checkbox" value="yes" required><span>Tengo autorización para analizar este video y acepto el uso académico de las muestras.</span></label>
+          <button id="analyze-button" class="primary" type="submit">Analizar video <span>→</span></button>
+        </fieldset>
       </form>
-      <p><a href="/samples/normal">Descargar video normal</a> · <a href="/samples/edge">Descargar video congelado</a> · <a href="/audit">Ver bitácora local</a></p>
     </section>
-
-    {% if error %}<section class="error" role="alert"><strong>No se pudo evaluar:</strong> {{ error }}</section>{% endif %}
-    {% if result %}
-    <section class="result {{ 'block' if result.action == 'bloquear_y_escalar' else '' }}" aria-live="polite">
-      <h2>Resultado</h2>
-      <p class="score">{{ result.score }} / 100</p>
-      <p><strong>Acción:</strong> {{ result.action.replace('_', ' ')|capitalize }}</p>
-      <ul>{% for reason in result.reasons %}<li>{{ reason.text }} ({{ reason.points }} puntos)</li>{% endfor %}</ul>
-      <p class="note">{{ result.warning }}</p>
-      <h3>Evidencia técnica y trazabilidad</h3>
-      <dl>
-        <dt>Cuadros decodificados</dt><dd>{{ result.video_metrics.decoded_frames }}</dd>
-        <dt>Duración</dt><dd>{{ result.video_metrics.duration_seconds }} segundos</dd>
-        <dt>Resolución</dt><dd>{{ result.video_metrics.width }} × {{ result.video_metrics.height }}</dd>
-        <dt>Transiciones casi idénticas</dt><dd>{{ result.video_metrics.frozen_transition_ratio }}</dd>
-        <dt>Cuadros oscuros</dt><dd>{{ result.video_metrics.dark_frame_ratio }}</dd>
-        <dt>ID de decisión</dt><dd><code>{{ result.decision_id }}</code></dd>
-        <dt>SHA-256 del video</dt><dd><code>{{ result.video_sha256 }}</code></dd>
-        <dt>Versión de reglas</dt><dd>{{ result.rule_version }}</dd>
-      </dl>
-    </section>
-    {% endif %}
-  </main>
-  <script>
-    const select = document.getElementById('sample_id');
-    const custom = document.getElementById('custom_fields');
-    function toggleCustom() { custom.hidden = select.value !== 'custom'; }
-    select.addEventListener('change', toggleCustom);
-    toggleCustom();
-  </script>
+    <div class="analysis-column">
+      <section class="panel preview-panel"><div class="section-title"><span class="step">03</span><h2>Inspecciona la evidencia</h2><span id="reference-label" class="badge neutral">Selecciona un video</span></div><div class="video-stage"><video id="preview" controls playsinline preload="metadata"></video><div id="preview-placeholder">Selecciona un ejemplo o carga tu video</div></div><p id="video-caption" class="hint">La etiqueta de referencia no se utiliza para calcular la predicción.</p></section>
+      <section id="progress-panel" class="panel progress-panel" aria-live="polite" hidden><div><strong id="progress-message">Preparando análisis</strong><span id="progress-percent">0 %</span></div><progress id="progress-bar" max="100" value="0"></progress><p class="hint">El análisis se ejecuta en tu equipo. La primera ejecución carga el modelo y puede tardar más.</p></section>
+      <section id="empty-result" class="panel empty-result"><span class="empty-mark">◎</span><h2>Un resultado que puedes revisar</h2><p>Recibirás una clasificación visual, evidencia por instante y una recomendación de tesorería con sus razones.</p><div class="three-items"><span>Rostros analizados</span><span>Incertidumbre visible</span><span>Registro exportable</span></div></section>
+      <section id="result-panel" class="panel" hidden aria-live="polite">
+        <div class="result-header"><div><p class="eyebrow">CLASIFICACIÓN VISUAL</p><h2 id="verdict-title"></h2><p id="confidence-text" class="hint"></p></div><a id="export-link" class="secondary" href="#">Exportar JSON ↓</a></div>
+        <div class="signal"><div><span>Puntuación de manipulación</span><strong id="model-score"></strong></div><div class="meter"><span id="model-meter"></span></div><p class="hint">Salida del modelo, sin calibración para estimar la probabilidad real de fraude.</p></div>
+        <div class="metrics"><div><strong id="face-count"></strong><span>instantes con rostro</span></div><div><strong id="coverage"></strong><span>cobertura facial</span></div><div><strong id="elapsed"></strong><span>de procesamiento</span></div></div>
+        <div id="reference-comparison" class="comparison" hidden></div>
+        <div class="chart-heading"><h3>Señal a lo largo del video</h3><span>Haz clic en un punto para ir a ese instante</span></div><svg id="timeline" viewBox="0 0 720 160" role="img" aria-label="Puntuación de manipulación por instante analizado"></svg>
+        <div class="chart-legend"><span><i class="dot low"></i>Señal baja</span><span><i class="dot medium"></i>Zona incierta</span><span><i class="dot high"></i>Señal alta</span></div>
+        <div id="payment-decision" class="payment-decision"><p class="eyebrow">RECOMENDACIÓN PARA LA TRANSFERENCIA</p><div class="decision-heading"><h3 id="action-title"></h3><strong id="risk-score"></strong></div><ul id="reasons"></ul><p class="hint">Recomendación de demostración. No ejecuta pagos ni confirma por sí sola la identidad del solicitante.</p></div>
+        <details><summary>Ver datos técnicos y trazabilidad</summary><dl id="technical-data"></dl><div class="table-scroll"><table><thead><tr><th>Instante</th><th>Rostros</th><th>Señal</th><th>Inspección</th></tr></thead><tbody id="frame-table"></tbody></table></div></details>
+      </section>
+    </div>
+  </div>
+  <section id="history" class="panel history-panel"><div class="section-title"><h2>Bitácora de decisiones</h2><button id="refresh-history" class="text-button" type="button">Actualizar ↻</button></div><p class="hint">Resultados y motivos guardados localmente. Los videos y recortes de rostros no se guardan en la bitácora.</p><div class="table-scroll"><table><thead><tr><th>Fecha · Bogotá</th><th>Entrada</th><th>Señal visual</th><th>Decisión</th><th>Informe</th></tr></thead><tbody id="history-body"></tbody></table></div></section>
+  <footer><strong>VeriCall · Proyecto académico</strong><p>Detector visual experimental. Puede producir falsos positivos y omitir deepfakes. No analiza audio ni sincronía labial. Las muestras públicas sirven para explorar esos límites.</p><a href="https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model" target="_blank" rel="noopener">Ficha del modelo ↗</a></footer>
+</main>
 </body>
 </html>

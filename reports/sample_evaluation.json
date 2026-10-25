@@ -1,0 +1,2738 @@
+{
+  "evaluated_at_utc": "2026-10-25T17:53:16.082027+00:00",
+  "purpose": "Demostración de desarrollo: seis ejemplos, no una validación independiente de desempeño.",
+  "selection": "IDs 1, 4 y 5 elegidos por tamaño antes de observar predicciones.",
+  "total": 6,
+  "correct_binary_predictions": 5,
+  "false_negatives": [
+    "fake_04"
+  ],
+  "false_positives": [],
+  "uncertain": [
+    "real_01",
+    "fake_01",
+    "fake_05"
+  ],
+  "results": [
+    {
+      "id": "real_01",
+      "reference_label": "real",
+      "video_sha256": "585563deeb447132157369d41f72a3b2c8229f33751598bac6125148e6f4f771",
+      "source_url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/video/1.mp4",
+      "correct_binary_prediction": true,
+      "detection": {
+        "verdict": "inconclusive",
+        "predicted_label": "real",
+        "classification_threshold": 0.5,
+        "fake_score": 0.33618,
+        "score_std": 0.19483,
+        "face_frames": 24,
+        "sampled_frames": 24,
+        "face_coverage": 1.0,
+        "sufficient_face_evidence": true,
+        "multiple_faces": false,
+        "quality": {
+          "dark_frame_ratio": 0.0,
+          "frozen_transition_ratio": 0.0,
+          "mean_sharpness": 1806.97
+        },
+        "thresholds": {
+          "low": 0.25,
+          "high": 0.75,
+          "minimum_face_frames": 4,
+          "minimum_coverage": 0.5
+        },
+        "aggregation": "mean_of_frame_max_face_scores",
+        "frames": [
+          {
+            "timestamp": 0.0,
+            "frame_index": 0,
+            "fake_score": 0.26485,
+            "faces": [
+              {
+                "box": [
+                  0.15972,
+                  0.32891,
+                  0.69861,
+                  0.39297
+                ],
+                "confidence": 0.9362,
+                "fake_score": 0.26485
+              }
+            ]
+          },
+          {
+            "timestamp": 0.4,
+            "frame_index": 8,
+            "fake_score": 0.25424,
+            "faces": [
+              {
+                "box": [
+                  0.17361,
+                  0.33672,
+                  0.68056,
+                  0.38281
+                ],
+                "confidence": 0.9407,
+                "fake_score": 0.25424
+              }
+            ]
+          },
+          {
+            "timestamp": 0.85,
+            "frame_index": 17,
+            "fake_score": 0.28425,
+            "faces": [
+              {
+                "box": [
+                  0.18194,
+                  0.34297,
+                  0.6625,
+                  0.37188
+                ],
+                "confidence": 0.9425,
+                "fake_score": 0.28425
+              }
+            ]
+          },
+          {
+            "timestamp": 1.25,
+            "frame_index": 25,
+            "fake_score": 0.53631,
+            "faces": [
+              {
+                "box": [
+                  0.1375,
+                  0.33359,
+                  0.70139,
+                  0.39531
+                ],
+                "confidence": 0.9455,
+                "fake_score": 0.53631
+              }
+            ]
+          },
+          {
+            "timestamp": 1.7,
+            "frame_index": 34,
+            "fake_score": 0.6026,
+            "faces": [
+              {
+                "box": [
+                  0.07917,
+                  0.33437,
+                  0.70694,
+                  0.39687
+                ],
+                "confidence": 0.9422,
+                "fake_score": 0.6026
+              }
+            ]
+          },
+          {
+            "timestamp": 2.1,
+            "frame_index": 42,
+            "fake_score": 0.26736,
+            "faces": [
+              {
+                "box": [
+                  0.07917,
+                  0.33828,
+                  0.65972,
+                  0.37109
+                ],
+                "confidence": 0.9456,
+                "fake_score": 0.26736
+              }
+            ]
+          },
+          {
+            "timestamp": 2.55,
+            "frame_index": 51,
+            "fake_score": 0.12256,
+            "faces": [
+              {
+                "box": [
+                  0.08472,
+                  0.33906,
+                  0.65,
+                  0.36484
+                ],
+                "confidence": 0.9464,
+                "fake_score": 0.12256
+              }
+            ]
+          },
+          {
+            "timestamp": 2.95,
+            "frame_index": 59,
+            "fake_score": 0.1819,
+            "faces": [
+              {
+                "box": [
+                  0.09444,
+                  0.33281,
+                  0.67778,
+                  0.38203
+                ],
+                "confidence": 0.9447,
+                "fake_score": 0.1819
+              }
+            ]
+          },
+          {
+            "timestamp": 3.4,
+            "frame_index": 68,
+            "fake_score": 0.53153,
+            "faces": [
+              {
+                "box": [
+                  0.13611,
+                  0.32578,
+                  0.68889,
+                  0.3875
+                ],
+                "confidence": 0.9486,
+                "fake_score": 0.53153
+              }
+            ]
+          },
+          {
+            "timestamp": 3.85,
+            "frame_index": 77,
+            "fake_score": 0.30812,
+            "faces": [
+              {
+                "box": [
+                  0.17639,
+                  0.33359,
+                  0.67361,
+                  0.37812
+                ],
+                "confidence": 0.9465,
+                "fake_score": 0.30812
+              }
+            ]
+          },
+          {
+            "timestamp": 4.25,
+            "frame_index": 85,
+            "fake_score": 0.6457,
+            "faces": [
+              {
+                "box": [
+                  0.23472,
+                  0.33906,
+                  0.67222,
+                  0.37812
+                ],
+                "confidence": 0.9378,
+                "fake_score": 0.6457
+              }
+            ]
+          },
+          {
+            "timestamp": 4.7,
+            "frame_index": 94,
+            "fake_score": 0.45784,
+            "faces": [
+              {
+                "box": [
+                  0.26528,
+                  0.34297,
+                  0.67639,
+                  0.38047
+                ],
+                "confidence": 0.9348,
+                "fake_score": 0.45784
+              }
+            ]
+          },
+          {
+            "timestamp": 5.1,
+            "frame_index": 102,
+            "fake_score": 0.1728,
+            "faces": [
+              {
+                "box": [
+                  0.32917,
+                  0.35234,
+                  0.64444,
+                  0.36172
+                ],
+                "confidence": 0.9358,
+                "fake_score": 0.1728
+              }
+            ]
+          },
+          {
+            "timestamp": 5.55,
+            "frame_index": 111,
+            "fake_score": 0.11014,
+            "faces": [
+              {
+                "box": [
+                  0.33472,
+                  0.35625,
+                  0.66528,
+                  0.37656
+                ],
+                "confidence": 0.9376,
+                "fake_score": 0.11014
+              }
+            ]
+          },
+          {
+            "timestamp": 5.95,
+            "frame_index": 119,
+            "fake_score": 0.62534,
+            "faces": [
+              {
+                "box": [
+                  0.30694,
+                  0.35469,
+                  0.66944,
+                  0.37656
+                ],
+                "confidence": 0.9351,
+                "fake_score": 0.62534
+              }
+            ]
+          },
+          {
+            "timestamp": 6.4,
+            "frame_index": 128,
+            "fake_score": 0.78524,
+            "faces": [
+              {
+                "box": [
+                  0.20972,
+                  0.32656,
+                  0.72222,
+                  0.40625
+                ],
+                "confidence": 0.94,
+                "fake_score": 0.78524
+              }
+            ]
+          },
+          {
+            "timestamp": 6.85,
+            "frame_index": 137,
+            "fake_score": 0.53505,
+            "faces": [
+              {
+                "box": [
+                  0.17778,
+                  0.33516,
+                  0.69583,
+                  0.39062
+                ],
+                "confidence": 0.9405,
+                "fake_score": 0.53505
+              }
+            ]
+          },
+          {
+            "timestamp": 7.25,
+            "frame_index": 145,
+            "fake_score": 0.13187,
+            "faces": [
+              {
+                "box": [
+                  0.23194,
+                  0.325,
+                  0.61667,
+                  0.34687
+                ],
+                "confidence": 0.9401,
+                "fake_score": 0.13187
+              }
+            ]
+          },
+          {
+            "timestamp": 7.7,
+            "frame_index": 154,
+            "fake_score": 0.20057,
+            "faces": [
+              {
+                "box": [
+                  0.26944,
+                  0.325,
+                  0.55833,
+                  0.31406
+                ],
+                "confidence": 0.9343,
+                "fake_score": 0.20057
+              }
+            ]
+          },
+          {
+            "timestamp": 8.1,
+            "frame_index": 162,
+            "fake_score": 0.22726,
+            "faces": [
+              {
+                "box": [
+                  0.275,
+                  0.33281,
+                  0.525,
+                  0.29453
+                ],
+                "confidence": 0.9151,
+                "fake_score": 0.22726
+              }
+            ]
+          },
+          {
+            "timestamp": 8.55,
+            "frame_index": 171,
+            "fake_score": 0.27605,
+            "faces": [
+              {
+                "box": [
+                  0.26389,
+                  0.33359,
+                  0.53194,
+                  0.29922
+                ],
+                "confidence": 0.9182,
+                "fake_score": 0.27605
+              }
+            ]
+          },
+          {
+            "timestamp": 8.95,
+            "frame_index": 179,
+            "fake_score": 0.27067,
+            "faces": [
+              {
+                "box": [
+                  0.19861,
+                  0.31875,
+                  0.67083,
+                  0.37812
+                ],
+                "confidence": 0.9426,
+                "fake_score": 0.27067
+              }
+            ]
+          },
+          {
+            "timestamp": 9.4,
+            "frame_index": 188,
+            "fake_score": 0.15773,
+            "faces": [
+              {
+                "box": [
+                  0.19306,
+                  0.34375,
+                  0.70694,
+                  0.39766
+                ],
+                "confidence": 0.9419,
+                "fake_score": 0.15773
+              }
+            ]
+          },
+          {
+            "timestamp": 9.849,
+            "frame_index": 197,
+            "fake_score": 0.11842,
+            "faces": [
+              {
+                "box": [
+                  0.18056,
+                  0.34375,
+                  0.71667,
+                  0.40313
+                ],
+                "confidence": 0.9401,
+                "fake_score": 0.11842
+              }
+            ]
+          }
+        ],
+        "duration_seconds": 9.899,
+        "width": 720,
+        "height": 1280,
+        "fps": 20.001,
+        "declared_frame_count": 198,
+        "elapsed_seconds": 2.434,
+        "model": {
+          "id": "prithivMLmods/Deep-Fake-Detector-v2-Model",
+          "revision": "3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093",
+          "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de",
+          "executed": true,
+          "device": "cpu",
+          "face_detector": "YuNet-2023mar"
+        },
+        "pipeline_version": "faces-vit-v2.0",
+        "scope": "Señal visual de manipulación facial; no verifica voz, identidad ni intención de fraude."
+      }
+    },
+    {
+      "id": "fake_01",
+      "reference_label": "fake",
+      "video_sha256": "4d718c8e3ff6050132f105faaa2ebd7285bca1ce7ea465edc00f77959579e58c",
+      "source_url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/deepfake/1.mp4",
+      "correct_binary_prediction": true,
+      "detection": {
+        "verdict": "inconclusive",
+        "predicted_label": "fake",
+        "classification_threshold": 0.5,
+        "fake_score": 0.70351,
+        "score_std": 0.17197,
+        "face_frames": 24,
+        "sampled_frames": 24,
+        "face_coverage": 1.0,
+        "sufficient_face_evidence": true,
+        "multiple_faces": false,
+        "quality": {
+          "dark_frame_ratio": 0.0,
+          "frozen_transition_ratio": 0.0,
+          "mean_sharpness": 1624.81
+        },
+        "thresholds": {
+          "low": 0.25,
+          "high": 0.75,
+          "minimum_face_frames": 4,
+          "minimum_coverage": 0.5
+        },
+        "aggregation": "mean_of_frame_max_face_scores",
+        "frames": [
+          {
+            "timestamp": 0.0,
+            "frame_index": 0,
+            "fake_score": 0.40132,
+            "faces": [
+              {
+                "box": [
+                  0.17361,
+                  0.33125,
+                  0.68611,
+                  0.38594
+                ],
+                "confidence": 0.9436,
+                "fake_score": 0.40132
+              }
+            ]
+          },
+          {
+            "timestamp": 0.4,
+            "frame_index": 8,
+            "fake_score": 0.36512,
+            "faces": [
+              {
+                "box": [
+                  0.17639,
+                  0.33906,
+                  0.67222,
+                  0.37891
+                ],
+                "confidence": 0.942,
+                "fake_score": 0.36512
+              }
+            ]
+          },
+          {
+            "timestamp": 0.85,
+            "frame_index": 17,
+            "fake_score": 0.40239,
+            "faces": [
+              {
+                "box": [
+                  0.18889,
+                  0.34219,
+                  0.65972,
+                  0.37109
+                ],
+                "confidence": 0.9437,
+                "fake_score": 0.40239
+              }
+            ]
+          },
+          {
+            "timestamp": 1.25,
+            "frame_index": 25,
+            "fake_score": 0.6822,
+            "faces": [
+              {
+                "box": [
+                  0.1625,
+                  0.33594,
+                  0.68056,
+                  0.38281
+                ],
+                "confidence": 0.9439,
+                "fake_score": 0.6822
+              }
+            ]
+          },
+          {
+            "timestamp": 1.7,
+            "frame_index": 34,
+            "fake_score": 0.84581,
+            "faces": [
+              {
+                "box": [
+                  0.07222,
+                  0.32578,
+                  0.73194,
+                  0.4125
+                ],
+                "confidence": 0.9453,
+                "fake_score": 0.84581
+              }
+            ]
+          },
+          {
+            "timestamp": 2.15,
+            "frame_index": 43,
+            "fake_score": 0.84763,
+            "faces": [
+              {
+                "box": [
+                  0.07222,
+                  0.31953,
+                  0.74167,
+                  0.41719
+                ],
+                "confidence": 0.9519,
+                "fake_score": 0.84763
+              }
+            ]
+          },
+          {
+            "timestamp": 2.55,
+            "frame_index": 51,
+            "fake_score": 0.81175,
+            "faces": [
+              {
+                "box": [
+                  0.06389,
+                  0.31641,
+                  0.72778,
+                  0.41016
+                ],
+                "confidence": 0.9492,
+                "fake_score": 0.81175
+              }
+            ]
+          },
+          {
+            "timestamp": 3.0,
+            "frame_index": 60,
+            "fake_score": 0.58183,
+            "faces": [
+              {
+                "box": [
+                  0.08194,
+                  0.32578,
+                  0.69583,
+                  0.39141
+                ],
+                "confidence": 0.947,
+                "fake_score": 0.58183
+              }
+            ]
+          },
+          {
+            "timestamp": 3.45,
+            "frame_index": 69,
+            "fake_score": 0.86478,
+            "faces": [
+              {
+                "box": [
+                  0.13472,
+                  0.32734,
+                  0.68333,
+                  0.38438
+                ],
+                "confidence": 0.9464,
+                "fake_score": 0.86478
+              }
+            ]
+          },
+          {
+            "timestamp": 3.85,
+            "frame_index": 77,
+            "fake_score": 0.72483,
+            "faces": [
+              {
+                "box": [
+                  0.16667,
+                  0.33047,
+                  0.67083,
+                  0.37734
+                ],
+                "confidence": 0.9454,
+                "fake_score": 0.72483
+              }
+            ]
+          },
+          {
+            "timestamp": 4.3,
+            "frame_index": 86,
+            "fake_score": 0.88771,
+            "faces": [
+              {
+                "box": [
+                  0.21389,
+                  0.33516,
+                  0.68611,
+                  0.38516
+                ],
+                "confidence": 0.9413,
+                "fake_score": 0.88771
+              }
+            ]
+          },
+          {
+            "timestamp": 4.75,
+            "frame_index": 95,
+            "fake_score": 0.7711,
+            "faces": [
+              {
+                "box": [
+                  0.26528,
+                  0.34453,
+                  0.67361,
+                  0.37891
+                ],
+                "confidence": 0.9438,
+                "fake_score": 0.7711
+              }
+            ]
+          },
+          {
+            "timestamp": 5.15,
+            "frame_index": 103,
+            "fake_score": 0.71856,
+            "faces": [
+              {
+                "box": [
+                  0.30278,
+                  0.34766,
+                  0.67361,
+                  0.37891
+                ],
+                "confidence": 0.9373,
+                "fake_score": 0.71856
+              }
+            ]
+          },
+          {
+            "timestamp": 5.6,
+            "frame_index": 112,
+            "fake_score": 0.48707,
+            "faces": [
+              {
+                "box": [
+                  0.31528,
+                  0.35,
+                  0.68472,
+                  0.38984
+                ],
+                "confidence": 0.9434,
+                "fake_score": 0.48707
+              }
+            ]
+          },
+          {
+            "timestamp": 6.05,
+            "frame_index": 121,
+            "fake_score": 0.81691,
+            "faces": [
+              {
+                "box": [
+                  0.29722,
+                  0.35,
+                  0.68194,
+                  0.38281
+                ],
+                "confidence": 0.9372,
+                "fake_score": 0.81691
+              }
+            ]
+          },
+          {
+            "timestamp": 6.45,
+            "frame_index": 129,
+            "fake_score": 0.88186,
+            "faces": [
+              {
+                "box": [
+                  0.21944,
+                  0.33203,
+                  0.71111,
+                  0.4
+                ],
+                "confidence": 0.9423,
+                "fake_score": 0.88186
+              }
+            ]
+          },
+          {
+            "timestamp": 6.9,
+            "frame_index": 138,
+            "fake_score": 0.80976,
+            "faces": [
+              {
+                "box": [
+                  0.19583,
+                  0.33672,
+                  0.67361,
+                  0.37891
+                ],
+                "confidence": 0.9428,
+                "fake_score": 0.80976
+              }
+            ]
+          },
+          {
+            "timestamp": 7.35,
+            "frame_index": 147,
+            "fake_score": 0.83054,
+            "faces": [
+              {
+                "box": [
+                  0.22639,
+                  0.31953,
+                  0.62361,
+                  0.35078
+                ],
+                "confidence": 0.9446,
+                "fake_score": 0.83054
+              }
+            ]
+          },
+          {
+            "timestamp": 7.75,
+            "frame_index": 155,
+            "fake_score": 0.85155,
+            "faces": [
+              {
+                "box": [
+                  0.25972,
+                  0.31719,
+                  0.58194,
+                  0.32812
+                ],
+                "confidence": 0.9396,
+                "fake_score": 0.85155
+              }
+            ]
+          },
+          {
+            "timestamp": 8.2,
+            "frame_index": 164,
+            "fake_score": 0.7183,
+            "faces": [
+              {
+                "box": [
+                  0.26944,
+                  0.32266,
+                  0.53889,
+                  0.30312
+                ],
+                "confidence": 0.9175,
+                "fake_score": 0.7183
+              }
+            ]
+          },
+          {
+            "timestamp": 8.65,
+            "frame_index": 173,
+            "fake_score": 0.83297,
+            "faces": [
+              {
+                "box": [
+                  0.25278,
+                  0.31953,
+                  0.56111,
+                  0.31562
+                ],
+                "confidence": 0.9259,
+                "fake_score": 0.83297
+              }
+            ]
+          },
+          {
+            "timestamp": 9.05,
+            "frame_index": 181,
+            "fake_score": 0.80637,
+            "faces": [
+              {
+                "box": [
+                  0.18333,
+                  0.31094,
+                  0.69167,
+                  0.38906
+                ],
+                "confidence": 0.9444,
+                "fake_score": 0.80637
+              }
+            ]
+          },
+          {
+            "timestamp": 9.5,
+            "frame_index": 190,
+            "fake_score": 0.425,
+            "faces": [
+              {
+                "box": [
+                  0.2,
+                  0.34531,
+                  0.69167,
+                  0.38828
+                ],
+                "confidence": 0.94,
+                "fake_score": 0.425
+              }
+            ]
+          },
+          {
+            "timestamp": 9.95,
+            "frame_index": 199,
+            "fake_score": 0.51895,
+            "faces": [
+              {
+                "box": [
+                  0.1875,
+                  0.34766,
+                  0.69583,
+                  0.39141
+                ],
+                "confidence": 0.9435,
+                "fake_score": 0.51895
+              }
+            ]
+          }
+        ],
+        "duration_seconds": 10.0,
+        "width": 720,
+        "height": 1280,
+        "fps": 20.0,
+        "declared_frame_count": 200,
+        "elapsed_seconds": 1.323,
+        "model": {
+          "id": "prithivMLmods/Deep-Fake-Detector-v2-Model",
+          "revision": "3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093",
+          "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de",
+          "executed": true,
+          "device": "cpu",
+          "face_detector": "YuNet-2023mar"
+        },
+        "pipeline_version": "faces-vit-v2.0",
+        "scope": "Señal visual de manipulación facial; no verifica voz, identidad ni intención de fraude."
+      }
+    },
+    {
+      "id": "real_04",
+      "reference_label": "real",
+      "video_sha256": "cf066d7d72ccc9893631bd82b4f17d64708f299efa0c88e3bc6794d127a2eac3",
+      "source_url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/video/4.mp4",
+      "correct_binary_prediction": true,
+      "detection": {
+        "verdict": "no_strong_signals",
+        "predicted_label": "real",
+        "classification_threshold": 0.5,
+        "fake_score": 0.19394,
+        "score_std": 0.16156,
+        "face_frames": 23,
+        "sampled_frames": 24,
+        "face_coverage": 0.9583,
+        "sufficient_face_evidence": true,
+        "multiple_faces": false,
+        "quality": {
+          "dark_frame_ratio": 0.0,
+          "frozen_transition_ratio": 0.0,
+          "mean_sharpness": 302.57
+        },
+        "thresholds": {
+          "low": 0.25,
+          "high": 0.75,
+          "minimum_face_frames": 4,
+          "minimum_coverage": 0.5
+        },
+        "aggregation": "mean_of_frame_max_face_scores",
+        "frames": [
+          {
+            "timestamp": 0.0,
+            "frame_index": 0,
+            "fake_score": 0.11656,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.1375,
+                  1.0,
+                  0.66172
+                ],
+                "confidence": 0.9344,
+                "fake_score": 0.11656
+              }
+            ]
+          },
+          {
+            "timestamp": 0.333,
+            "frame_index": 10,
+            "fake_score": 0.13147,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.13594,
+                  1.0,
+                  0.65859
+                ],
+                "confidence": 0.931,
+                "fake_score": 0.13147
+              }
+            ]
+          },
+          {
+            "timestamp": 0.7,
+            "frame_index": 21,
+            "fake_score": 0.18605,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.13672,
+                  1.0,
+                  0.65391
+                ],
+                "confidence": 0.9313,
+                "fake_score": 0.18605
+              }
+            ]
+          },
+          {
+            "timestamp": 1.066,
+            "frame_index": 32,
+            "fake_score": 0.08029,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.12656,
+                  1.0,
+                  0.68125
+                ],
+                "confidence": 0.9242,
+                "fake_score": 0.08029
+              }
+            ]
+          },
+          {
+            "timestamp": 1.433,
+            "frame_index": 43,
+            "fake_score": 0.14129,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.12578,
+                  1.0,
+                  0.65625
+                ],
+                "confidence": 0.9141,
+                "fake_score": 0.14129
+              }
+            ]
+          },
+          {
+            "timestamp": 1.799,
+            "frame_index": 54,
+            "fake_score": 0.11194,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.12734,
+                  0.97917,
+                  0.63672
+                ],
+                "confidence": 0.8987,
+                "fake_score": 0.11194
+              }
+            ]
+          },
+          {
+            "timestamp": 2.166,
+            "frame_index": 65,
+            "fake_score": 0.08405,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.12109,
+                  1.0,
+                  0.65938
+                ],
+                "confidence": 0.9166,
+                "fake_score": 0.08405
+              }
+            ]
+          },
+          {
+            "timestamp": 2.532,
+            "frame_index": 76,
+            "fake_score": 0.10643,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.11719,
+                  1.0,
+                  0.64453
+                ],
+                "confidence": 0.9289,
+                "fake_score": 0.10643
+              }
+            ]
+          },
+          {
+            "timestamp": 2.899,
+            "frame_index": 87,
+            "fake_score": 0.11845,
+            "faces": [
+              {
+                "box": [
+                  0.03889,
+                  0.11563,
+                  0.96111,
+                  0.65469
+                ],
+                "confidence": 0.9061,
+                "fake_score": 0.11845
+              }
+            ]
+          },
+          {
+            "timestamp": 3.265,
+            "frame_index": 98,
+            "fake_score": 0.47767,
+            "faces": [
+              {
+                "box": [
+                  0.13333,
+                  0.11094,
+                  0.86667,
+                  0.66172
+                ],
+                "confidence": 0.8992,
+                "fake_score": 0.47767
+              }
+            ]
+          },
+          {
+            "timestamp": 3.632,
+            "frame_index": 109,
+            "fake_score": 0.11969,
+            "faces": [
+              {
+                "box": [
+                  0.12361,
+                  0.10547,
+                  0.87639,
+                  0.67422
+                ],
+                "confidence": 0.8979,
+                "fake_score": 0.11969
+              }
+            ]
+          },
+          {
+            "timestamp": 3.998,
+            "frame_index": 120,
+            "fake_score": 0.08947,
+            "faces": [
+              {
+                "box": [
+                  0.11528,
+                  0.10469,
+                  0.88472,
+                  0.67734
+                ],
+                "confidence": 0.8983,
+                "fake_score": 0.08947
+              }
+            ]
+          },
+          {
+            "timestamp": 4.332,
+            "frame_index": 130,
+            "fake_score": 0.11826,
+            "faces": [
+              {
+                "box": [
+                  0.0375,
+                  0.10234,
+                  0.9625,
+                  0.66875
+                ],
+                "confidence": 0.9104,
+                "fake_score": 0.11826
+              }
+            ]
+          },
+          {
+            "timestamp": 4.698,
+            "frame_index": 141,
+            "fake_score": 0.09475,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.10703,
+                  1.0,
+                  0.6625
+                ],
+                "confidence": 0.9294,
+                "fake_score": 0.09475
+              }
+            ]
+          },
+          {
+            "timestamp": 5.065,
+            "frame_index": 152,
+            "fake_score": 0.14683,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.09688,
+                  1.0,
+                  0.60313
+                ],
+                "confidence": 0.924,
+                "fake_score": 0.14683
+              }
+            ]
+          },
+          {
+            "timestamp": 5.431,
+            "frame_index": 163,
+            "fake_score": 0.24045,
+            "faces": [
+              {
+                "box": [
+                  0.02361,
+                  0.10078,
+                  0.97639,
+                  0.55703
+                ],
+                "confidence": 0.9206,
+                "fake_score": 0.24045
+              }
+            ]
+          },
+          {
+            "timestamp": 5.798,
+            "frame_index": 174,
+            "fake_score": 0.18199,
+            "faces": [
+              {
+                "box": [
+                  0.12083,
+                  0.15,
+                  0.78056,
+                  0.43828
+                ],
+                "confidence": 0.8791,
+                "fake_score": 0.18199
+              }
+            ]
+          },
+          {
+            "timestamp": 6.164,
+            "frame_index": 185,
+            "fake_score": null,
+            "faces": []
+          },
+          {
+            "timestamp": 6.531,
+            "frame_index": 196,
+            "fake_score": 0.09716,
+            "faces": [
+              {
+                "box": [
+                  0.16667,
+                  0.16406,
+                  0.72778,
+                  0.40937
+                ],
+                "confidence": 0.8895,
+                "fake_score": 0.09716
+              }
+            ]
+          },
+          {
+            "timestamp": 6.897,
+            "frame_index": 207,
+            "fake_score": 0.08311,
+            "faces": [
+              {
+                "box": [
+                  0.00833,
+                  0.08984,
+                  0.99167,
+                  0.60625
+                ],
+                "confidence": 0.9134,
+                "fake_score": 0.08311
+              }
+            ]
+          },
+          {
+            "timestamp": 7.264,
+            "frame_index": 218,
+            "fake_score": 0.10888,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.06797,
+                  1.0,
+                  0.67734
+                ],
+                "confidence": 0.925,
+                "fake_score": 0.10888
+              }
+            ]
+          },
+          {
+            "timestamp": 7.63,
+            "frame_index": 229,
+            "fake_score": 0.41208,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.10703,
+                  1.0,
+                  0.66953
+                ],
+                "confidence": 0.9301,
+                "fake_score": 0.41208
+              }
+            ]
+          },
+          {
+            "timestamp": 7.997,
+            "frame_index": 240,
+            "fake_score": 0.6699,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.15,
+                  1.0,
+                  0.68125
+                ],
+                "confidence": 0.9226,
+                "fake_score": 0.6699
+              }
+            ]
+          },
+          {
+            "timestamp": 8.364,
+            "frame_index": 251,
+            "fake_score": 0.54396,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.16172,
+                  1.0,
+                  0.6625
+                ],
+                "confidence": 0.9203,
+                "fake_score": 0.54396
+              }
+            ]
+          }
+        ],
+        "duration_seconds": 8.397,
+        "width": 720,
+        "height": 1280,
+        "fps": 30.011,
+        "declared_frame_count": 252,
+        "elapsed_seconds": 1.084,
+        "model": {
+          "id": "prithivMLmods/Deep-Fake-Detector-v2-Model",
+          "revision": "3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093",
+          "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de",
+          "executed": true,
+          "device": "cpu",
+          "face_detector": "YuNet-2023mar"
+        },
+        "pipeline_version": "faces-vit-v2.0",
+        "scope": "Señal visual de manipulación facial; no verifica voz, identidad ni intención de fraude."
+      }
+    },
+    {
+      "id": "fake_04",
+      "reference_label": "fake",
+      "video_sha256": "13d8b90f4de1a7c65499f3a0e5b2fbb5f00d4af4b367eb4e41f837f3883db757",
+      "source_url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/deepfake/4.mp4",
+      "correct_binary_prediction": false,
+      "detection": {
+        "verdict": "no_strong_signals",
+        "predicted_label": "real",
+        "classification_threshold": 0.5,
+        "fake_score": 0.21676,
+        "score_std": 0.16081,
+        "face_frames": 23,
+        "sampled_frames": 24,
+        "face_coverage": 0.9583,
+        "sufficient_face_evidence": true,
+        "multiple_faces": false,
+        "quality": {
+          "dark_frame_ratio": 0.0,
+          "frozen_transition_ratio": 0.0,
+          "mean_sharpness": 499.08
+        },
+        "thresholds": {
+          "low": 0.25,
+          "high": 0.75,
+          "minimum_face_frames": 4,
+          "minimum_coverage": 0.5
+        },
+        "aggregation": "mean_of_frame_max_face_scores",
+        "frames": [
+          {
+            "timestamp": 0.0,
+            "frame_index": 0,
+            "fake_score": 0.21668,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.15234,
+                  1.0,
+                  0.63086
+                ],
+                "confidence": 0.9294,
+                "fake_score": 0.21668
+              }
+            ]
+          },
+          {
+            "timestamp": 0.333,
+            "frame_index": 8,
+            "fake_score": 0.15042,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.15039,
+                  1.0,
+                  0.63281
+                ],
+                "confidence": 0.9271,
+                "fake_score": 0.15042
+              }
+            ]
+          },
+          {
+            "timestamp": 0.708,
+            "frame_index": 17,
+            "fake_score": 0.32676,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.14844,
+                  1.0,
+                  0.64844
+                ],
+                "confidence": 0.9304,
+                "fake_score": 0.32676
+              }
+            ]
+          },
+          {
+            "timestamp": 1.083,
+            "frame_index": 26,
+            "fake_score": 0.10965,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.14648,
+                  1.0,
+                  0.65039
+                ],
+                "confidence": 0.9182,
+                "fake_score": 0.10965
+              }
+            ]
+          },
+          {
+            "timestamp": 1.417,
+            "frame_index": 34,
+            "fake_score": 0.13157,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.14844,
+                  1.0,
+                  0.63867
+                ],
+                "confidence": 0.9105,
+                "fake_score": 0.13157
+              }
+            ]
+          },
+          {
+            "timestamp": 1.792,
+            "frame_index": 43,
+            "fake_score": 0.41403,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.16016,
+                  0.93056,
+                  0.58984
+                ],
+                "confidence": 0.9054,
+                "fake_score": 0.41403
+              }
+            ]
+          },
+          {
+            "timestamp": 2.167,
+            "frame_index": 52,
+            "fake_score": 0.20691,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.13477,
+                  1.0,
+                  0.64062
+                ],
+                "confidence": 0.9105,
+                "fake_score": 0.20691
+              }
+            ]
+          },
+          {
+            "timestamp": 2.542,
+            "frame_index": 61,
+            "fake_score": 0.11988,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.13281,
+                  1.0,
+                  0.625
+                ],
+                "confidence": 0.9259,
+                "fake_score": 0.11988
+              }
+            ]
+          },
+          {
+            "timestamp": 2.875,
+            "frame_index": 69,
+            "fake_score": 0.08846,
+            "faces": [
+              {
+                "box": [
+                  0.05208,
+                  0.12891,
+                  0.94792,
+                  0.60547
+                ],
+                "confidence": 0.9077,
+                "fake_score": 0.08846
+              }
+            ]
+          },
+          {
+            "timestamp": 3.25,
+            "frame_index": 78,
+            "fake_score": 0.13525,
+            "faces": [
+              {
+                "box": [
+                  0.14236,
+                  0.12695,
+                  0.85764,
+                  0.61328
+                ],
+                "confidence": 0.9021,
+                "fake_score": 0.13525
+              }
+            ]
+          },
+          {
+            "timestamp": 3.625,
+            "frame_index": 87,
+            "fake_score": 0.10811,
+            "faces": [
+              {
+                "box": [
+                  0.15278,
+                  0.13086,
+                  0.84722,
+                  0.61133
+                ],
+                "confidence": 0.8959,
+                "fake_score": 0.10811
+              }
+            ]
+          },
+          {
+            "timestamp": 4.0,
+            "frame_index": 96,
+            "fake_score": 0.09676,
+            "faces": [
+              {
+                "box": [
+                  0.15972,
+                  0.13281,
+                  0.84028,
+                  0.60156
+                ],
+                "confidence": 0.8932,
+                "fake_score": 0.09676
+              }
+            ]
+          },
+          {
+            "timestamp": 4.333,
+            "frame_index": 104,
+            "fake_score": 0.07113,
+            "faces": [
+              {
+                "box": [
+                  0.09722,
+                  0.13281,
+                  0.90278,
+                  0.60352
+                ],
+                "confidence": 0.9094,
+                "fake_score": 0.07113
+              }
+            ]
+          },
+          {
+            "timestamp": 4.708,
+            "frame_index": 113,
+            "fake_score": 0.09273,
+            "faces": [
+              {
+                "box": [
+                  0.03472,
+                  0.12695,
+                  0.96528,
+                  0.60156
+                ],
+                "confidence": 0.918,
+                "fake_score": 0.09273
+              }
+            ]
+          },
+          {
+            "timestamp": 5.083,
+            "frame_index": 122,
+            "fake_score": 0.18411,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.10156,
+                  1.0,
+                  0.60156
+                ],
+                "confidence": 0.9235,
+                "fake_score": 0.18411
+              }
+            ]
+          },
+          {
+            "timestamp": 5.458,
+            "frame_index": 131,
+            "fake_score": 0.11338,
+            "faces": [
+              {
+                "box": [
+                  0.0625,
+                  0.11914,
+                  0.91319,
+                  0.51367
+                ],
+                "confidence": 0.9209,
+                "fake_score": 0.11338
+              }
+            ]
+          },
+          {
+            "timestamp": 5.792,
+            "frame_index": 139,
+            "fake_score": 0.44254,
+            "faces": [
+              {
+                "box": [
+                  0.125,
+                  0.13086,
+                  0.77431,
+                  0.43555
+                ],
+                "confidence": 0.901,
+                "fake_score": 0.44254
+              }
+            ]
+          },
+          {
+            "timestamp": 6.167,
+            "frame_index": 148,
+            "fake_score": null,
+            "faces": []
+          },
+          {
+            "timestamp": 6.542,
+            "frame_index": 157,
+            "fake_score": 0.26111,
+            "faces": [
+              {
+                "box": [
+                  0.14931,
+                  0.14062,
+                  0.74306,
+                  0.41797
+                ],
+                "confidence": 0.8941,
+                "fake_score": 0.26111
+              }
+            ]
+          },
+          {
+            "timestamp": 6.917,
+            "frame_index": 166,
+            "fake_score": 0.0794,
+            "faces": [
+              {
+                "box": [
+                  0.07986,
+                  0.11914,
+                  0.92014,
+                  0.5293
+                ],
+                "confidence": 0.9143,
+                "fake_score": 0.0794
+              }
+            ]
+          },
+          {
+            "timestamp": 7.25,
+            "frame_index": 174,
+            "fake_score": 0.1161,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.08594,
+                  1.0,
+                  0.63672
+                ],
+                "confidence": 0.9276,
+                "fake_score": 0.1161
+              }
+            ]
+          },
+          {
+            "timestamp": 7.625,
+            "frame_index": 183,
+            "fake_score": 0.27724,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.11523,
+                  1.0,
+                  0.63867
+                ],
+                "confidence": 0.9242,
+                "fake_score": 0.27724
+              }
+            ]
+          },
+          {
+            "timestamp": 8.0,
+            "frame_index": 192,
+            "fake_score": 0.61392,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.1582,
+                  1.0,
+                  0.64648
+                ],
+                "confidence": 0.9208,
+                "fake_score": 0.61392
+              }
+            ]
+          },
+          {
+            "timestamp": 8.375,
+            "frame_index": 201,
+            "fake_score": 0.62923,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.16797,
+                  1.0,
+                  0.63672
+                ],
+                "confidence": 0.9204,
+                "fake_score": 0.62923
+              }
+            ]
+          }
+        ],
+        "duration_seconds": 8.417,
+        "width": 288,
+        "height": 512,
+        "fps": 24.0,
+        "declared_frame_count": 202,
+        "elapsed_seconds": 0.763,
+        "model": {
+          "id": "prithivMLmods/Deep-Fake-Detector-v2-Model",
+          "revision": "3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093",
+          "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de",
+          "executed": true,
+          "device": "cpu",
+          "face_detector": "YuNet-2023mar"
+        },
+        "pipeline_version": "faces-vit-v2.0",
+        "scope": "Señal visual de manipulación facial; no verifica voz, identidad ni intención de fraude."
+      }
+    },
+    {
+      "id": "real_05",
+      "reference_label": "real",
+      "video_sha256": "9f8561d9bc2b2177b8eff136a3e0df7d773316384759c4acdaeb270d6e1d484c",
+      "source_url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/video/5.MOV",
+      "correct_binary_prediction": true,
+      "detection": {
+        "verdict": "no_strong_signals",
+        "predicted_label": "real",
+        "classification_threshold": 0.5,
+        "fake_score": 0.20909,
+        "score_std": 0.12973,
+        "face_frames": 24,
+        "sampled_frames": 24,
+        "face_coverage": 1.0,
+        "sufficient_face_evidence": true,
+        "multiple_faces": false,
+        "quality": {
+          "dark_frame_ratio": 0.0,
+          "frozen_transition_ratio": 0.0,
+          "mean_sharpness": 372.43
+        },
+        "thresholds": {
+          "low": 0.25,
+          "high": 0.75,
+          "minimum_face_frames": 4,
+          "minimum_coverage": 0.5
+        },
+        "aggregation": "mean_of_frame_max_face_scores",
+        "frames": [
+          {
+            "timestamp": 0.0,
+            "frame_index": 0,
+            "fake_score": 0.09672,
+            "faces": [
+              {
+                "box": [
+                  0.13333,
+                  0.12292,
+                  0.86667,
+                  0.66458
+                ],
+                "confidence": 0.9473,
+                "fake_score": 0.09672
+              }
+            ]
+          },
+          {
+            "timestamp": 0.625,
+            "frame_index": 15,
+            "fake_score": 0.21713,
+            "faces": [
+              {
+                "box": [
+                  0.125,
+                  0.11875,
+                  0.875,
+                  0.67083
+                ],
+                "confidence": 0.9501,
+                "fake_score": 0.21713
+              }
+            ]
+          },
+          {
+            "timestamp": 1.292,
+            "frame_index": 31,
+            "fake_score": 0.22167,
+            "faces": [
+              {
+                "box": [
+                  0.125,
+                  0.12083,
+                  0.875,
+                  0.66875
+                ],
+                "confidence": 0.9488,
+                "fake_score": 0.22167
+              }
+            ]
+          },
+          {
+            "timestamp": 1.916,
+            "frame_index": 46,
+            "fake_score": 0.24335,
+            "faces": [
+              {
+                "box": [
+                  0.125,
+                  0.11042,
+                  0.875,
+                  0.70208
+                ],
+                "confidence": 0.9462,
+                "fake_score": 0.24335
+              }
+            ]
+          },
+          {
+            "timestamp": 2.583,
+            "frame_index": 62,
+            "fake_score": 0.60315,
+            "faces": [
+              {
+                "box": [
+                  0.16944,
+                  0.11042,
+                  0.83056,
+                  0.69792
+                ],
+                "confidence": 0.937,
+                "fake_score": 0.60315
+              }
+            ]
+          },
+          {
+            "timestamp": 3.208,
+            "frame_index": 77,
+            "fake_score": 0.51718,
+            "faces": [
+              {
+                "box": [
+                  0.16667,
+                  0.1125,
+                  0.83333,
+                  0.70208
+                ],
+                "confidence": 0.9389,
+                "fake_score": 0.51718
+              }
+            ]
+          },
+          {
+            "timestamp": 3.875,
+            "frame_index": 93,
+            "fake_score": 0.3519,
+            "faces": [
+              {
+                "box": [
+                  0.13333,
+                  0.10833,
+                  0.86667,
+                  0.71042
+                ],
+                "confidence": 0.9452,
+                "fake_score": 0.3519
+              }
+            ]
+          },
+          {
+            "timestamp": 4.499,
+            "frame_index": 108,
+            "fake_score": 0.15847,
+            "faces": [
+              {
+                "box": [
+                  0.12778,
+                  0.12083,
+                  0.87222,
+                  0.67708
+                ],
+                "confidence": 0.9503,
+                "fake_score": 0.15847
+              }
+            ]
+          },
+          {
+            "timestamp": 5.166,
+            "frame_index": 124,
+            "fake_score": 0.22279,
+            "faces": [
+              {
+                "box": [
+                  0.11667,
+                  0.11458,
+                  0.88333,
+                  0.68125
+                ],
+                "confidence": 0.9546,
+                "fake_score": 0.22279
+              }
+            ]
+          },
+          {
+            "timestamp": 5.791,
+            "frame_index": 139,
+            "fake_score": 0.2004,
+            "faces": [
+              {
+                "box": [
+                  0.04167,
+                  0.09792,
+                  0.95833,
+                  0.72292
+                ],
+                "confidence": 0.9442,
+                "fake_score": 0.2004
+              }
+            ]
+          },
+          {
+            "timestamp": 6.458,
+            "frame_index": 155,
+            "fake_score": 0.25079,
+            "faces": [
+              {
+                "box": [
+                  0.02778,
+                  0.1125,
+                  0.93333,
+                  0.70208
+                ],
+                "confidence": 0.9386,
+                "fake_score": 0.25079
+              }
+            ]
+          },
+          {
+            "timestamp": 7.083,
+            "frame_index": 170,
+            "fake_score": 0.08444,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.11458,
+                  0.93056,
+                  0.69792
+                ],
+                "confidence": 0.9325,
+                "fake_score": 0.08444
+              }
+            ]
+          },
+          {
+            "timestamp": 7.749,
+            "frame_index": 186,
+            "fake_score": 0.33482,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.10417,
+                  0.93611,
+                  0.70625
+                ],
+                "confidence": 0.9358,
+                "fake_score": 0.33482
+              }
+            ]
+          },
+          {
+            "timestamp": 8.374,
+            "frame_index": 201,
+            "fake_score": 0.19309,
+            "faces": [
+              {
+                "box": [
+                  0.04444,
+                  0.1125,
+                  0.92222,
+                  0.69375
+                ],
+                "confidence": 0.9397,
+                "fake_score": 0.19309
+              }
+            ]
+          },
+          {
+            "timestamp": 9.041,
+            "frame_index": 217,
+            "fake_score": 0.10103,
+            "faces": [
+              {
+                "box": [
+                  0.10556,
+                  0.11875,
+                  0.89444,
+                  0.67708
+                ],
+                "confidence": 0.9444,
+                "fake_score": 0.10103
+              }
+            ]
+          },
+          {
+            "timestamp": 9.666,
+            "frame_index": 232,
+            "fake_score": 0.12512,
+            "faces": [
+              {
+                "box": [
+                  0.10833,
+                  0.09167,
+                  0.89167,
+                  0.66875
+                ],
+                "confidence": 0.943,
+                "fake_score": 0.12512
+              }
+            ]
+          },
+          {
+            "timestamp": 10.332,
+            "frame_index": 248,
+            "fake_score": 0.15921,
+            "faces": [
+              {
+                "box": [
+                  0.15556,
+                  0.1,
+                  0.8,
+                  0.6
+                ],
+                "confidence": 0.9267,
+                "fake_score": 0.15921
+              }
+            ]
+          },
+          {
+            "timestamp": 10.957,
+            "frame_index": 263,
+            "fake_score": 0.11328,
+            "faces": [
+              {
+                "box": [
+                  0.17778,
+                  0.10417,
+                  0.75,
+                  0.5625
+                ],
+                "confidence": 0.9232,
+                "fake_score": 0.11328
+              }
+            ]
+          },
+          {
+            "timestamp": 11.624,
+            "frame_index": 279,
+            "fake_score": 0.07853,
+            "faces": [
+              {
+                "box": [
+                  0.17222,
+                  0.10417,
+                  0.77778,
+                  0.58542
+                ],
+                "confidence": 0.9274,
+                "fake_score": 0.07853
+              }
+            ]
+          },
+          {
+            "timestamp": 12.249,
+            "frame_index": 294,
+            "fake_score": 0.08359,
+            "faces": [
+              {
+                "box": [
+                  0.125,
+                  0.08333,
+                  0.875,
+                  0.65833
+                ],
+                "confidence": 0.934,
+                "fake_score": 0.08359
+              }
+            ]
+          },
+          {
+            "timestamp": 12.915,
+            "frame_index": 310,
+            "fake_score": 0.10195,
+            "faces": [
+              {
+                "box": [
+                  0.12222,
+                  0.11042,
+                  0.87778,
+                  0.68125
+                ],
+                "confidence": 0.9485,
+                "fake_score": 0.10195
+              }
+            ]
+          },
+          {
+            "timestamp": 13.54,
+            "frame_index": 325,
+            "fake_score": 0.25151,
+            "faces": [
+              {
+                "box": [
+                  0.06389,
+                  0.11875,
+                  0.93611,
+                  0.75833
+                ],
+                "confidence": 0.9506,
+                "fake_score": 0.25151
+              }
+            ]
+          },
+          {
+            "timestamp": 14.207,
+            "frame_index": 341,
+            "fake_score": 0.13685,
+            "faces": [
+              {
+                "box": [
+                  0.10833,
+                  0.16667,
+                  0.89167,
+                  0.71458
+                ],
+                "confidence": 0.9543,
+                "fake_score": 0.13685
+              }
+            ]
+          },
+          {
+            "timestamp": 14.873,
+            "frame_index": 357,
+            "fake_score": 0.17113,
+            "faces": [
+              {
+                "box": [
+                  0.10556,
+                  0.16458,
+                  0.89444,
+                  0.71458
+                ],
+                "confidence": 0.9541,
+                "fake_score": 0.17113
+              }
+            ]
+          }
+        ],
+        "duration_seconds": 14.915,
+        "width": 360,
+        "height": 480,
+        "fps": 24.003,
+        "declared_frame_count": 358,
+        "elapsed_seconds": 0.732,
+        "model": {
+          "id": "prithivMLmods/Deep-Fake-Detector-v2-Model",
+          "revision": "3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093",
+          "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de",
+          "executed": true,
+          "device": "cpu",
+          "face_detector": "YuNet-2023mar"
+        },
+        "pipeline_version": "faces-vit-v2.0",
+        "scope": "Señal visual de manipulación facial; no verifica voz, identidad ni intención de fraude."
+      }
+    },
+    {
+      "id": "fake_05",
+      "reference_label": "fake",
+      "video_sha256": "1e3c0f1239f979d0c9cf3688e073bd65076c48758aeb329d5e3bcd29368ea10a",
+      "source_url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/deepfake/5.mov",
+      "correct_binary_prediction": true,
+      "detection": {
+        "verdict": "inconclusive",
+        "predicted_label": "fake",
+        "classification_threshold": 0.5,
+        "fake_score": 0.57393,
+        "score_std": 0.19089,
+        "face_frames": 24,
+        "sampled_frames": 24,
+        "face_coverage": 1.0,
+        "sufficient_face_evidence": true,
+        "multiple_faces": false,
+        "quality": {
+          "dark_frame_ratio": 0.0,
+          "frozen_transition_ratio": 0.0,
+          "mean_sharpness": 920.6
+        },
+        "thresholds": {
+          "low": 0.25,
+          "high": 0.75,
+          "minimum_face_frames": 4,
+          "minimum_coverage": 0.5
+        },
+        "aggregation": "mean_of_frame_max_face_scores",
+        "frames": [
+          {
+            "timestamp": 0.0,
+            "frame_index": 0,
+            "fake_score": 0.19363,
+            "faces": [
+              {
+                "box": [
+                  0.13056,
+                  0.11875,
+                  0.86944,
+                  0.66875
+                ],
+                "confidence": 0.9437,
+                "fake_score": 0.19363
+              }
+            ]
+          },
+          {
+            "timestamp": 0.417,
+            "frame_index": 10,
+            "fake_score": 0.21637,
+            "faces": [
+              {
+                "box": [
+                  0.125,
+                  0.11875,
+                  0.875,
+                  0.66875
+                ],
+                "confidence": 0.9453,
+                "fake_score": 0.21637
+              }
+            ]
+          },
+          {
+            "timestamp": 0.833,
+            "frame_index": 20,
+            "fake_score": 0.29223,
+            "faces": [
+              {
+                "box": [
+                  0.12222,
+                  0.11875,
+                  0.87778,
+                  0.66875
+                ],
+                "confidence": 0.9467,
+                "fake_score": 0.29223
+              }
+            ]
+          },
+          {
+            "timestamp": 1.292,
+            "frame_index": 31,
+            "fake_score": 0.58826,
+            "faces": [
+              {
+                "box": [
+                  0.08889,
+                  0.10208,
+                  0.91111,
+                  0.71458
+                ],
+                "confidence": 0.9456,
+                "fake_score": 0.58826
+              }
+            ]
+          },
+          {
+            "timestamp": 1.708,
+            "frame_index": 41,
+            "fake_score": 0.37802,
+            "faces": [
+              {
+                "box": [
+                  0.11111,
+                  0.10625,
+                  0.88889,
+                  0.70417
+                ],
+                "confidence": 0.9421,
+                "fake_score": 0.37802
+              }
+            ]
+          },
+          {
+            "timestamp": 2.167,
+            "frame_index": 52,
+            "fake_score": 0.72592,
+            "faces": [
+              {
+                "box": [
+                  0.13889,
+                  0.10417,
+                  0.86111,
+                  0.70625
+                ],
+                "confidence": 0.9403,
+                "fake_score": 0.72592
+              }
+            ]
+          },
+          {
+            "timestamp": 2.583,
+            "frame_index": 62,
+            "fake_score": 0.74378,
+            "faces": [
+              {
+                "box": [
+                  0.16389,
+                  0.10625,
+                  0.83611,
+                  0.70417
+                ],
+                "confidence": 0.9371,
+                "fake_score": 0.74378
+              }
+            ]
+          },
+          {
+            "timestamp": 3.042,
+            "frame_index": 73,
+            "fake_score": 0.74605,
+            "faces": [
+              {
+                "box": [
+                  0.16944,
+                  0.10625,
+                  0.83056,
+                  0.70417
+                ],
+                "confidence": 0.9361,
+                "fake_score": 0.74605
+              }
+            ]
+          },
+          {
+            "timestamp": 3.458,
+            "frame_index": 83,
+            "fake_score": 0.6285,
+            "faces": [
+              {
+                "box": [
+                  0.18333,
+                  0.13125,
+                  0.81667,
+                  0.65833
+                ],
+                "confidence": 0.9356,
+                "fake_score": 0.6285
+              }
+            ]
+          },
+          {
+            "timestamp": 3.875,
+            "frame_index": 93,
+            "fake_score": 0.57674,
+            "faces": [
+              {
+                "box": [
+                  0.13333,
+                  0.10417,
+                  0.86667,
+                  0.70833
+                ],
+                "confidence": 0.9413,
+                "fake_score": 0.57674
+              }
+            ]
+          },
+          {
+            "timestamp": 4.333,
+            "frame_index": 104,
+            "fake_score": 0.22894,
+            "faces": [
+              {
+                "box": [
+                  0.10556,
+                  0.10833,
+                  0.89444,
+                  0.70625
+                ],
+                "confidence": 0.9456,
+                "fake_score": 0.22894
+              }
+            ]
+          },
+          {
+            "timestamp": 4.75,
+            "frame_index": 114,
+            "fake_score": 0.34666,
+            "faces": [
+              {
+                "box": [
+                  0.12222,
+                  0.1125,
+                  0.87778,
+                  0.68542
+                ],
+                "confidence": 0.946,
+                "fake_score": 0.34666
+              }
+            ]
+          },
+          {
+            "timestamp": 5.208,
+            "frame_index": 125,
+            "fake_score": 0.45284,
+            "faces": [
+              {
+                "box": [
+                  0.11389,
+                  0.11667,
+                  0.88611,
+                  0.67708
+                ],
+                "confidence": 0.9477,
+                "fake_score": 0.45284
+              }
+            ]
+          },
+          {
+            "timestamp": 5.625,
+            "frame_index": 135,
+            "fake_score": 0.70998,
+            "faces": [
+              {
+                "box": [
+                  0.08611,
+                  0.1125,
+                  0.91389,
+                  0.68958
+                ],
+                "confidence": 0.9464,
+                "fake_score": 0.70998
+              }
+            ]
+          },
+          {
+            "timestamp": 6.083,
+            "frame_index": 146,
+            "fake_score": 0.69088,
+            "faces": [
+              {
+                "box": [
+                  0.05,
+                  0.11042,
+                  0.93611,
+                  0.70208
+                ],
+                "confidence": 0.9464,
+                "fake_score": 0.69088
+              }
+            ]
+          },
+          {
+            "timestamp": 6.5,
+            "frame_index": 156,
+            "fake_score": 0.77013,
+            "faces": [
+              {
+                "box": [
+                  0.02778,
+                  0.11042,
+                  0.93611,
+                  0.70208
+                ],
+                "confidence": 0.9404,
+                "fake_score": 0.77013
+              }
+            ]
+          },
+          {
+            "timestamp": 6.917,
+            "frame_index": 166,
+            "fake_score": 0.76667,
+            "faces": [
+              {
+                "box": [
+                  0.01111,
+                  0.11042,
+                  0.92778,
+                  0.69583
+                ],
+                "confidence": 0.9409,
+                "fake_score": 0.76667
+              }
+            ]
+          },
+          {
+            "timestamp": 7.375,
+            "frame_index": 177,
+            "fake_score": 0.68681,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.10833,
+                  0.93333,
+                  0.70208
+                ],
+                "confidence": 0.9397,
+                "fake_score": 0.68681
+              }
+            ]
+          },
+          {
+            "timestamp": 7.792,
+            "frame_index": 187,
+            "fake_score": 0.7699,
+            "faces": [
+              {
+                "box": [
+                  0.0,
+                  0.10833,
+                  0.93611,
+                  0.70208
+                ],
+                "confidence": 0.9403,
+                "fake_score": 0.7699
+              }
+            ]
+          },
+          {
+            "timestamp": 8.25,
+            "frame_index": 198,
+            "fake_score": 0.58305,
+            "faces": [
+              {
+                "box": [
+                  0.03333,
+                  0.11042,
+                  0.93611,
+                  0.7
+                ],
+                "confidence": 0.9436,
+                "fake_score": 0.58305
+              }
+            ]
+          },
+          {
+            "timestamp": 8.667,
+            "frame_index": 208,
+            "fake_score": 0.69191,
+            "faces": [
+              {
+                "box": [
+                  0.08056,
+                  0.11042,
+                  0.91944,
+                  0.69792
+                ],
+                "confidence": 0.9445,
+                "fake_score": 0.69191
+              }
+            ]
+          },
+          {
+            "timestamp": 9.125,
+            "frame_index": 219,
+            "fake_score": 0.60766,
+            "faces": [
+              {
+                "box": [
+                  0.1,
+                  0.10625,
+                  0.9,
+                  0.69167
+                ],
+                "confidence": 0.9462,
+                "fake_score": 0.60766
+              }
+            ]
+          },
+          {
+            "timestamp": 9.542,
+            "frame_index": 229,
+            "fake_score": 0.77124,
+            "faces": [
+              {
+                "box": [
+                  0.10278,
+                  0.0875,
+                  0.89722,
+                  0.68333
+                ],
+                "confidence": 0.9447,
+                "fake_score": 0.77124
+              }
+            ]
+          },
+          {
+            "timestamp": 10.0,
+            "frame_index": 240,
+            "fake_score": 0.6081,
+            "faces": [
+              {
+                "box": [
+                  0.13611,
+                  0.08542,
+                  0.84722,
+                  0.63333
+                ],
+                "confidence": 0.9344,
+                "fake_score": 0.6081
+              }
+            ]
+          }
+        ],
+        "duration_seconds": 10.042,
+        "width": 360,
+        "height": 480,
+        "fps": 24.0,
+        "declared_frame_count": 241,
+        "elapsed_seconds": 0.815,
+        "model": {
+          "id": "prithivMLmods/Deep-Fake-Detector-v2-Model",
+          "revision": "3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093",
+          "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de",
+          "executed": true,
+          "device": "cpu",
+          "face_detector": "YuNet-2023mar"
+        },
+        "pipeline_version": "faces-vit-v2.0",
+        "scope": "Señal visual de manipulación facial; no verifica voz, identidad ni intención de fraude."
+      }
+    }
+  ]
+}

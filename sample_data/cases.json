@@ -1,32 +1,5 @@
 [
-  {
-    "id": "normal",
-    "label": "Normal: muestra con movimiento, monto bajo y verificación declarada",
-    "video": "videos/moving_shapes.avi",
-    "amount": "500000",
-    "limit": "1000000",
-    "new_beneficiary": false,
-    "alternate_verified": true,
-    "expected_action": "autorizar_pendiente_confirmacion"
-  },
-  {
-    "id": "edge",
-    "label": "Alerta: video congelado, cuenta nueva y monto alto",
-    "video": "videos/frozen_shapes.avi",
-    "amount": "1500000",
-    "limit": "1000000",
-    "new_beneficiary": true,
-    "alternate_verified": false,
-    "expected_action": "bloquear_y_escalar"
-  },
-  {
-    "id": "invalid",
-    "label": "Inválido: archivo de texto con extensión no admitida",
-    "video": "invalid/not_a_video.txt",
-    "amount": "500000",
-    "limit": "1000000",
-    "new_beneficiary": false,
-    "alternate_verified": false,
-    "expected_error": "Formato no admitido"
-  }
+  {"id":"no_faces_moving", "video":"videos/moving_shapes.avi", "synthetic":true, "expected_detection":"unknown", "purpose":"Ausencia de rostros: nunca autenticar figuras geométricas"},
+  {"id":"no_faces_frozen", "video":"videos/frozen_shapes.avi", "synthetic":true, "expected_detection":"unknown", "purpose":"Imagen congelada sin rostro"},
+  {"id":"invalid", "video":"invalid/not_a_video.txt", "synthetic":true, "expected_error":"Formato no admitido"}
 ]

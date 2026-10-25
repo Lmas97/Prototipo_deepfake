@@ -28,45 +28,42 @@ Fuentes revisadas en esta carpeta:
 
 El PDF también asigna al equipo 1 una ponencia en sesión 2 (p. 23) y un examen final individual (p. 2). La ausencia de archivos aquí **no demuestra** que esas actividades estén pendientes.
 
-## Recomendación de MVP y supuestos
+## Alcance actual: versión 2
 
-**Recomendación técnica propia:** simular una solicitud de transferencia fuera de línea. El operador selecciona un video sintético incluido o sube un AVI/MP4, ingresa monto, límite y estado del beneficiario, declara consentimiento para procesar el video y registra si comprobó identidad por un canal corporativo independiente. El programa decodifica cuadros reales, mide duración, resolución, brillo y congelamiento, calcula un puntaje con reglas explícitas y registra una bitácora reconstruible. No mueve dinero.
+La solicitud posterior del usuario amplió el prototipo para incorporar un detector entrenado y ejemplos públicos con personas. La arquitectura y los criterios de esta ampliación se fijaron en [modelo_y_validacion.md](modelo_y_validacion.md).
 
-**Prioridad 1:** video procesado de verdad, regla de puntaje, revisión/bloqueo, consentimiento, evidencia y bitácora. **Prioridad 2:** interfaz para casos de demostración y exportación de auditoría. **Fuera del MVP:** integración Zoom/Teams/Meet, ERP/banca, enrolamiento biométrico, análisis de audio y un clasificador de deepfakes validado. No se simula que estas piezas existan.
+**Implementado:** aplicación Flask local, reproducción de seis videos de Unidata, carga de archivos propios, inferencia real sobre rostros mediante YuNet y Vision Transformer, muestreo de 24 instantes, clasificación binaria con zona de incertidumbre, reglas de transferencia, cola acotada con progreso, historial SQLite y exportación JSON. Video subido y recortes no se guardan en la bitácora; el archivo temporal se elimina al terminar o fallar el trabajo.
 
-**Datos del MVP:** video temporal, monto, límite, beneficiario nuevo, consentimiento y declaración manual de verificación independiente. La declaración es una entrada de demostración: el software no comprueba por sí mismo que la llamada alterna se haya realizado. Los videos son figuras geométricas sintéticas, sin caras ni voces. Las señales visuales indican condiciones de *calidad o anomalía técnica*, no autenticidad de una persona ni detección de deepfakes.
+**Datos requeridos:** video autorizado de hasta 100 MB/2 minutos, monto, límite, condición de cuenta nueva y declaración de verificación por otro canal. Las seis muestras tienen etiquetas de referencia proporcionadas por el editor; estas etiquetas no entran al modelo. Los archivos geométricos de la versión 1 permanecen como pruebas negativas de ausencia de rostros.
 
-**Salida:** puntaje heurístico y motivos, acción `autorizar_pendiente_confirmacion`, `revisar_canal_alterno` o `bloquear_y_escalar`, métricas de video y número de auditoría. El estado de autorización es una recomendación que requiere confirmación del analista; no ejecuta el pago. Falta validar empíricamente los pesos y umbrales antes de uso real.
+**Qué usa aprendizaje automático:** YuNet localiza rostros y el Vision Transformer clasifica recortes RGB. **Qué es determinista:** muestreo, agregación, validación, reglas de negocio y registro. **Qué se declara o simula:** la transferencia y la verificación alterna son entradas de demostración; el sistema no llama al directivo ni consulta el ERP ni ejecuta pagos.
 
-**Interfaz y tecnología:** aplicación web local Flask; OpenCV decodifica los cuadros y NumPy calcula indicadores. Una sola máquina y archivo JSONL evitan cuentas de nube, claves y base de datos para la demostración. La bitácora guarda hash SHA-256 y métricas, nunca el video crudo. Los videos subidos se borran al acabar el análisis.
+**Límites de alcance:** no hay audio, análisis temporal aprendido, sincronía labial, reconocimiento de identidad, integración en llamadas en vivo o banca. El modelo puede detectar señales visuales de deepfake, pero puede omitir ataques. La prueba de seis clips incluye un falso negativo y se conserva en el informe.
 
 ```mermaid
 flowchart LR
-  A[Video sintético o cargado] --> B[Validación y cuadros]
-  C[Solicitud de transferencia] --> D[Reglas de riesgo]
-  B --> D
-  D --> E[Acción y razones]
-  E --> F[Bitácora JSONL]
-  E --> G[Analista de tesorería]
+  A[Video autorizado] --> B[24 instantes uniformes]
+  B --> C[YuNet: rostros]
+  C --> D[ViT: puntuación por rostro]
+  D --> E[Agregación e incertidumbre]
+  E --> F[Reglas de transferencia]
+  G[Monto y declaraciones del analista] --> F
+  F --> H[SQLite: evidencia y decisión]
+  H --> I[Interfaz e informe JSON]
 ```
 
-## Criterios de aceptación del prototipo
+## Criterios de aceptación y evidencia
 
-1. El video normal incluido se decodifica y la solicitud de monto bajo, beneficiario conocido, consentimiento y verificación alterna declarada obtiene recomendación de autorizar pendiente de confirmación.
-2. El video congelado incluido y una solicitud con beneficiario nuevo y monto superior al límite producen bloqueo y escalamiento con motivos visibles.
-3. Una solicitud sin verificación alterna declarada no se recomienda para autorización aunque el puntaje sea bajo.
-4. Una solicitud sin consentimiento no procesa el video ni autoriza; un archivo que no sea video produce un error legible.
-5. Cada evaluación válida genera identificador, hash, versión de reglas, entradas no sensibles, métricas, razones y acción en la bitácora. No se conserva el video.
-6. Se pueden ejecutar pruebas automáticas y el recorrido normal desde la interfaz local.
+- Archivos públicos con URLs, revisión y hashes verificados: `config/assets.json`.
+- Inferencia real, local, sin utilizar la etiqueta o el nombre del archivo como señal: `vericall/pipeline.py`, `tests/test_prototype.py`.
+- Una entrada sin rostro suficiente es inconclusa; un modelo ausente no se reemplaza por una predicción ficticia.
+- Consentimiento declarado, valores válidos y archivo decodificable antes de emitir decisión.
+- Cuenta nueva o monto alto fuerza revisión; puntaje alto bloquea; evidencia incierta nunca produce recomendación de autorizar.
+- Toda decisión aparece únicamente después de persistir su evidencia. Si falla la bitácora, el trabajo falla sin veredicto de pago.
+- La evaluación incluye los seis clips elegidos, todos los errores y casos inciertos: `reports/sample_evaluation.json`.
 
-Estos son criterios **del software de demostración**, no evidencia de cumplir las metas académicas de 98 % de fraude detenido, ≤ 2 % de falsos bloqueos, ≤ 15 minutos, 100 % de trazabilidad o ≤ 1 punto de brecha entre grupos. Esas metas provienen del entregable 2 y requieren casos reales o simulaciones representativas, etiquetas verificadas y evaluación de grupos. Los videos sintéticos no permiten medirlas.
+Estos criterios verifican software y una pequeña demostración de detección. No demuestran cumplir las metas del entregable 2: ≥98 % de fraude detenido, ≤2 % de falsos bloqueos, ≤15 minutos, 100 % de trazabilidad operativa o ≤1 punto de brecha entre grupos. Se requiere un estudio representativo e independiente.
 
-## Preguntas abiertas para el equipo
+## Preguntas pendientes del equipo
 
-- ¿Quién tiene autoridad final y responsabilidad contractual al liberar un bloqueo? El entregable 1 señala esta duda.
-- ¿Cómo se autentican y mantienen el perfil enrolado, el número alterno y los límites por cliente?
-- ¿Cuáles datos concretos se pueden obtener legal y técnicamente de las plataformas de llamada y de pagos?
-- ¿Qué conjunto de ataques representativos y de llamadas legítimas permitiría estimar las cinco métricas con intervalos de confianza?
-- ¿Qué política de retención, acceso y respuesta a incidentes aprobarían la empresa y su asesoría jurídica?
-
-Estas preguntas no bloquean la demostración local, pero sí una recomendación de despliegue.
+Responsabilidad contractual al liberar bloqueos; autenticación del canal alterno y límites; disponibilidad de datos de llamadas y ERP; dataset independiente representativo; política aprobada de acceso y retención; evaluación de sesgos y adaptación a nuevos generadores. Estas cuestiones siguen pendientes antes de un piloto organizacional.

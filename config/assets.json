@@ -1,0 +1,108 @@
+{
+  "assets": [
+    {
+      "group": "model",
+      "path": "models/deepfake-vit/config.json",
+      "url": "https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model/resolve/3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093/config.json",
+      "sha256": "b2a87a8b9c4fedab5ba35c3cd4cb3b3ba927c595c356a4897c7bd7713ea25565"
+    },
+    {
+      "group": "model",
+      "path": "models/deepfake-vit/preprocessor_config.json",
+      "url": "https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model/resolve/3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093/preprocessor_config.json",
+      "sha256": "445c77049d082004aa07593344d5e1f521f1198228bf586196f70ce7ae021414"
+    },
+    {
+      "group": "model",
+      "path": "models/deepfake-vit/README.md",
+      "url": "https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model/resolve/3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093/README.md",
+      "sha256": "2ed72ceae5900d3356cd86b995337d2bdd96fce3c1e1435279cbe17b3ebbde9f"
+    },
+    {
+      "group": "model",
+      "path": "models/deepfake-vit/model.safetensors",
+      "url": "https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model/resolve/3a99ae26f52c7ac7c3a53103b6cf3a8b617f7093/model.safetensors",
+      "sha256": "88ac0939285009e3700cfc9b9a0912b14b092d200ef0df86efe4f2cf190ea4de"
+    },
+    {
+      "group": "samples",
+      "id": "real_01",
+      "path": "sample_data/public/real_01.mp4",
+      "url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/video/1.mp4",
+      "sha256": "585563deeb447132157369d41f72a3b2c8229f33751598bac6125148e6f4f771",
+      "reference_label": "real",
+      "source": "ud-biometrics/deepfake-dataset",
+      "license": "CC BY-NC-ND 4.0",
+      "max_bytes": 30000000
+    },
+    {
+      "group": "samples",
+      "id": "fake_01",
+      "path": "sample_data/public/fake_01.mp4",
+      "url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/deepfake/1.mp4",
+      "sha256": "4d718c8e3ff6050132f105faaa2ebd7285bca1ce7ea465edc00f77959579e58c",
+      "reference_label": "fake",
+      "source": "ud-biometrics/deepfake-dataset",
+      "license": "CC BY-NC-ND 4.0",
+      "max_bytes": 30000000
+    },
+    {
+      "group": "samples",
+      "id": "real_04",
+      "path": "sample_data/public/real_04.mp4",
+      "url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/video/4.mp4",
+      "sha256": "cf066d7d72ccc9893631bd82b4f17d64708f299efa0c88e3bc6794d127a2eac3",
+      "reference_label": "real",
+      "source": "ud-biometrics/deepfake-dataset",
+      "license": "CC BY-NC-ND 4.0",
+      "max_bytes": 30000000
+    },
+    {
+      "group": "samples",
+      "id": "fake_04",
+      "path": "sample_data/public/fake_04.mp4",
+      "url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/deepfake/4.mp4",
+      "sha256": "13d8b90f4de1a7c65499f3a0e5b2fbb5f00d4af4b367eb4e41f837f3883db757",
+      "reference_label": "fake",
+      "source": "ud-biometrics/deepfake-dataset",
+      "license": "CC BY-NC-ND 4.0",
+      "max_bytes": 30000000
+    },
+    {
+      "group": "samples",
+      "id": "real_05",
+      "path": "sample_data/public/real_05.mov",
+      "url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/video/5.MOV",
+      "sha256": "9f8561d9bc2b2177b8eff136a3e0df7d773316384759c4acdaeb270d6e1d484c",
+      "reference_label": "real",
+      "source": "ud-biometrics/deepfake-dataset",
+      "license": "CC BY-NC-ND 4.0",
+      "max_bytes": 30000000
+    },
+    {
+      "group": "samples",
+      "id": "fake_05",
+      "path": "sample_data/public/fake_05.mov",
+      "url": "https://huggingface.co/datasets/ud-biometrics/deepfake-dataset/resolve/9252c30f344f38267cc1faf99542ce457afcca67/deepfake/5.mov",
+      "sha256": "1e3c0f1239f979d0c9cf3688e073bd65076c48758aeb329d5e3bcd29368ea10a",
+      "reference_label": "fake",
+      "source": "ud-biometrics/deepfake-dataset",
+      "license": "CC BY-NC-ND 4.0",
+      "max_bytes": 30000000
+    },
+    {
+      "group": "model",
+      "path": "models/face_detection_yunet_2023mar.onnx",
+      "url": "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx",
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "max_bytes": 1000000
+    },
+    {
+      "group": "model",
+      "path": "models/YUNET_LICENSE",
+      "url": "https://raw.githubusercontent.com/opencv/opencv_zoo/main/models/face_detection_yunet/LICENSE",
+      "max_bytes": 100000,
+      "sha256": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958"
+    }
+  ]
+}
