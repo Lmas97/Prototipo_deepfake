@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeriCall · Prototipo de decisión</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #17222d; background: #edf3f4; }
+    body { margin: 0; }
+    header { background: #102e3a; color: white; padding: 1.5rem max(1.2rem, calc((100vw - 950px)/2)); }
+    header h1 { margin: 0; font-size: 2rem; }
+    header p { max-width: 750px; color: #d1e8eb; }
+    main { max-width: 950px; margin: 2rem auto; padding: 0 1rem 3rem; display: grid; gap: 1.3rem; }
+    section { background: white; border-radius: 12px; padding: 1.4rem; box-shadow: 0 3px 14px #15384814; }
+    h2 { margin: 0 0 1rem; color: #123b49; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; }
+    label { display: block; font-weight: 650; margin: .7rem 0 .3rem; }
+    input[type=number], input[type=file], select { width: 100%; box-sizing: border-box; padding: .65rem; border: 1px solid #a7bec5; border-radius: 6px; background: white; }
+    .check { display: flex; align-items: start; gap: .6rem; font-weight: 450; margin: 1rem 0; }
+    .check input { margin-top: .25rem; }
+    button { border: 0; border-radius: 7px; color: white; background: #087d80; padding: .8rem 1.2rem; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    button:hover { background: #075d60; }
+    .note { border-left: 4px solid #c78521; padding: .7rem 1rem; background: #fff8e9; }
+    .error { background: #fff0f0; border-left: 4px solid #b73636; padding: 1rem; }
+    .result { border-left: 5px solid #087d80; }
+    .result.block { border-left-color: #b73636; }
+    .score { font-size: 2rem; font-weight: 800; margin: .5rem 0; }
+    dl { display: grid; grid-template-columns: minmax(130px, 210px) 1fr; gap: .5rem 1rem; }
+    dt { font-weight: 700; } dd { margin: 0; overflow-wrap: anywhere; }
+    code { background: #f1f5f6; padding: .1rem .25rem; }
+    a { color: #066f75; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>VeriCall</h1>
+    <p>Demostración local de una decisión de tesorería basada en reglas, calidad de video y trazabilidad.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Evaluar una solicitud ficticia</h2>
+      <p class="note">Los videos incluidos son figuras geométricas sintéticas. Este prototipo <strong>no autentica identidades ni detecta deepfakes</strong>. El campo de verificación alterna representa una declaración del operador, no una llamada comprobada por el sistema.</p>
+      <form action="/assess" method="post" enctype="multipart/form-data">
+        <label for="sample_id">Caso de prueba</label>
+        <select id="sample_id" name="sample_id">
+          {% for case in cases %}<option value="{{ case.id }}">{{ case.label }}</option>{% endfor %}
+          <option value="custom">Cargar mi propio video y datos</option>
+        </select>
+        <div id="custom_fields" hidden>
+          <label for="video">Video AVI o MP4, máximo 25 MB</label>
+          <input id="video" name="video" type="file" accept=".avi,.mp4,video/avi,video/mp4">
+          <div class="grid">
+            <div><label for="amount">Monto solicitado</label><input id="amount" name="amount" type="number" min="0.01" step="0.01" value="500000"></div>
+            <div><label for="limit">Límite del cliente</label><input id="limit" name="limit" type="number" min="0.01" step="0.01" value="1000000"></div>
+          </div>
+          <label class="check"><input name="new_beneficiary" value="yes" type="checkbox">El beneficiario es nuevo</label>
+          <label class="check"><input name="alternate_verified" value="yes" type="checkbox">Declaro que comprobé la identidad por un canal corporativo independiente</label>
+        </div>
+        <label class="check"><input name="consent" value="yes" type="checkbox" required>Declaro tener autorización para procesar este video en la demostración</label>
+        <button type="submit">Analizar video y evaluar</button>
+      </form>
+      <p><a href="/samples/normal">Descargar video normal</a> · <a href="/samples/edge">Descargar video congelado</a> · <a href="/audit">Ver bitácora local</a></p>
+    </section>
+
+    {% if error %}<section class="error" role="alert"><strong>No se pudo evaluar:</strong> {{ error }}</section>{% endif %}
+    {% if result %}
+    <section class="result {{ 'block' if result.action == 'bloquear_y_escalar' else '' }}" aria-live="polite">
+      <h2>Resultado</h2>
+      <p class="score">{{ result.score }} / 100</p>
+      <p><strong>Acción:</strong> {{ result.action.replace('_', ' ')|capitalize }}</p>
+      <ul>{% for reason in result.reasons %}<li>{{ reason.text }} ({{ reason.points }} puntos)</li>{% endfor %}</ul>
+      <p class="note">{{ result.warning }}</p>
+      <h3>Evidencia técnica y trazabilidad</h3>
+      <dl>
+        <dt>Cuadros decodificados</dt><dd>{{ result.video_metrics.decoded_frames }}</dd>
+        <dt>Duración</dt><dd>{{ result.video_metrics.duration_seconds }} segundos</dd>
+        <dt>Resolución</dt><dd>{{ result.video_metrics.width }} × {{ result.video_metrics.height }}</dd>
+        <dt>Transiciones casi idénticas</dt><dd>{{ result.video_metrics.frozen_transition_ratio }}</dd>
+        <dt>Cuadros oscuros</dt><dd>{{ result.video_metrics.dark_frame_ratio }}</dd>
+        <dt>ID de decisión</dt><dd><code>{{ result.decision_id }}</code></dd>
+        <dt>SHA-256 del video</dt><dd><code>{{ result.video_sha256 }}</code></dd>
+        <dt>Versión de reglas</dt><dd>{{ result.rule_version }}</dd>
+      </dl>
+    </section>
+    {% endif %}
+  </main>
+  <script>
+    const select = document.getElementById('sample_id');
+    const custom = document.getElementById('custom_fields');
+    function toggleCustom() { custom.hidden = select.value !== 'custom'; }
+    select.addEventListener('change', toggleCustom);
+    toggleCustom();
+  </script>
+</body>
+</html>

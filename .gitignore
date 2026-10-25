@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.DS_Store
+instance/*
+!instance/.gitkeep
+# Material del curso entregado en esta carpeta; no se redistribuye en Git.
+*.docx
+GD-Actividades Clave 2026-II.pdf
