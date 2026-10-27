@@ -25,7 +25,7 @@ def detection(score=0.1, face_count=12):
 
 def decision(result=None, **overrides):
     values = dict(amount="500000", limit="1000000", new_beneficiary=False,
-                  alternate_verified=True, detection=result or detection())
+                  detection=result or detection())
     values.update(overrides)
     return evaluate(**values)
 
@@ -61,8 +61,10 @@ def test_invalid_amounts(bad):
 
 
 def test_business_gates_and_risk_separation():
+    # Entregable 2: 0–30 aceptar (el analista confirma), sin exigir verificación previa.
     assert decision()["action"] == "autorizar_pendiente_confirmacion"
-    assert decision(alternate_verified=False)["action"] == "revisar_canal_alterno"
+    assert decision(detection(.2))["score"] == 20
+    assert decision(detection(.5))["action"] == "revisar_canal_alterno"
     assert decision(new_beneficiary=True)["action"] == "revisar_canal_alterno"
     assert decision(amount="1000001")["action"] == "revisar_canal_alterno"
     assert decision(detection(0.9))["action"] == "bloquear_y_escalar"

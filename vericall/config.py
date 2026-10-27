@@ -17,3 +17,13 @@ LOW_THRESHOLD = 0.25
 HIGH_THRESHOLD = 0.75
 MIN_FACE_FRAMES = 4
 MIN_COVERAGE = 0.5
+
+# Monitoreo en vivo: cuadros sueltos enviados por el navegador durante la llamada.
+LIVE_PIPELINE_VERSION = "live-faces-vit-v1.0"
+LIVE_WINDOW_FRAMES = 16
+LIVE_MAX_FRAMES = 3600
+LIVE_MAX_FRAME_BYTES = 3 * 1024 * 1024
+LIVE_MAX_SESSIONS = 3
+LIVE_IDLE_SECONDS = 600
+# Entregable 2, criterio de oportunidad: liberar un pago retenido en ≤ 15 minutos.
+RESOLUTION_SLA_SECONDS = 15 * 60

@@ -38,7 +38,9 @@ La solicitud posterior del usuario amplió el prototipo para incorporar un detec
 
 **Qué usa aprendizaje automático:** YuNet localiza rostros y el Vision Transformer clasifica recortes RGB. **Qué es determinista:** muestreo, agregación, validación, reglas de negocio y registro. **Qué se declara o simula:** la transferencia y la verificación alterna son entradas de demostración; el sistema no llama al directivo ni consulta el ERP ni ejecuta pagos.
 
-**Límites de alcance:** no hay audio, análisis temporal aprendido, sincronía labial, reconocimiento de identidad, integración en llamadas en vivo o banca. El modelo puede detectar señales visuales de deepfake, pero puede omitir ataques. La prueba de seis clips incluye un falso negativo y se conserva en el informe.
+**Versión 3, monitoreo en vivo:** cuadros de una llamada simulada, la cámara o la ventana compartida de Zoom/Meet/Teams se analizan durante la llamada. La transferencia se evalúa con la evidencia acumulada y la decisión final la toma una persona con reglas de rol, canal alterno y tiempo objetivo. La bitácora está encadenada por hashes. Ver README.
+
+**Límites de alcance:** no hay audio, análisis temporal aprendido, sincronía labial, reconocimiento de identidad, integración por API de la plataforma de video ni con la banca. Los roles no se autentican. El modelo puede detectar señales visuales de deepfake, pero puede omitir ataques. La prueba de seis clips incluye un falso negativo y se conserva en el informe.
 
 ```mermaid
 flowchart LR

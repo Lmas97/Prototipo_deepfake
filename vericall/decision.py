@@ -1,9 +1,12 @@
 """Reglas transparentes y provisionales de riesgo de transferencia."""
 
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
 
+from vericall.config import RESOLUTION_SLA_SECONDS
 
-RULE_VERSION = "risk-v2.0"
+RULE_VERSION = "risk-v3.0"
+ROLES = {"analista": "Analista de tesorería", "seguridad": "Área de seguridad"}
 
 
 class InputError(ValueError):
@@ -22,8 +25,7 @@ def positive_money(raw: object, label: str) -> Decimal:
     return number.quantize(Decimal("0.01"))
 
 
-def evaluate(*, amount: object, limit: object, new_beneficiary: bool,
-             alternate_verified: bool, detection: dict) -> dict:
+def evaluate(*, amount: object, limit: object, new_beneficiary: bool, detection: dict) -> dict:
     amount_value = positive_money(amount, "El monto")
     limit_value = positive_money(limit, "El límite")
     reasons = []
@@ -61,16 +63,14 @@ def evaluate(*, amount: object, limit: object, new_beneficiary: bool,
     score = min(score, 100)
     mandatory_review = (new_beneficiary or amount_value > limit_value or quality_problem
                         or detection["verdict"] == "inconclusive" or detection["multiple_faces"])
+    # Rangos del entregable 2: 0–30 aceptar, 31–70 revisar, 71–100 bloquear.
     if score >= 71:
         action = "bloquear_y_escalar"
-    elif score >= 31 or mandatory_review or not alternate_verified:
+    elif score >= 31 or mandatory_review:
         action = "revisar_canal_alterno"
     else:
         action = "autorizar_pendiente_confirmacion"
 
-    if not alternate_verified:
-        reasons.append({"code": "no_alternate_verification", "points": 0,
-                        "text": "No consta verificación independiente; no se recomienda autorizar."})
     if not reasons:
         reasons.append({"code": "no_flags", "points": 0,
                         "text": "Sin alertas en las reglas de esta demostración; el analista debe confirmar."})
@@ -84,7 +84,44 @@ def evaluate(*, amount: object, limit: object, new_beneficiary: bool,
             "amount": str(amount_value),
             "limit": str(limit_value),
             "new_beneficiary": new_beneficiary,
-            "alternate_verified_declared": alternate_verified,
         },
         "warning": "El puntaje combina la señal visual y reglas de negocio. No es una probabilidad de fraude ni ejecuta un pago.",
+    }
+
+
+def resolve(entry: dict, *, outcome: str, role: str, actor: str, alternate_verified: bool,
+            channel: str, now: datetime) -> dict:
+    """Decisión humana final. Aplica las restricciones innegociables del entregable 2."""
+    action = entry["decision"]["action"]
+    actor, channel = (actor or "").strip()[:80], (channel or "").strip()[:200]
+    if outcome not in ("release", "reject"):
+        raise InputError("Elige liberar o rechazar el pago.")
+    if role not in ROLES:
+        raise InputError("Rol no reconocido.")
+    if not actor:
+        raise InputError("Indica el nombre de quien toma la decisión final.")
+    if alternate_verified and not channel:
+        raise InputError("Describe el canal alterno usado, por ejemplo: llamada al número registrado del directivo.")
+    if outcome == "release":
+        if action == "revisar_canal_alterno" and not alternate_verified:
+            raise InputError("Este pago solo puede liberarse después de verificarlo por un canal alterno.")
+        if action == "bloquear_y_escalar":
+            if role != "seguridad":
+                raise InputError("Un bloqueo crítico solo puede liberarlo el área de seguridad.")
+            if not alternate_verified:
+                raise InputError("Nunca se libera un bloqueo crítico sin verificación por canal alterno.")
+            if actor.casefold() == (entry.get("analyst") or "").strip().casefold():
+                raise InputError("Segregación de funciones: quien solicitó la evaluación no puede liberar su propio bloqueo.")
+    elapsed = (now - datetime.fromisoformat(entry["timestamp_utc"])).total_seconds()
+    return {
+        "outcome": outcome,
+        "status": "liberada" if outcome == "release" else "rechazada",
+        "role": role, "role_label": ROLES[role], "actor": actor,
+        "alternate_verified": alternate_verified, "alternate_channel": channel or None,
+        "recommended_action": action,
+        "elapsed_seconds": round(elapsed, 1),
+        "sla_seconds": RESOLUTION_SLA_SECONDS,
+        "within_sla": elapsed <= RESOLUTION_SLA_SECONDS,
+        "rule_version": RULE_VERSION,
+        "note": "Rol declarado en la demostración; un piloto requiere autenticación y permisos por rol.",
     }

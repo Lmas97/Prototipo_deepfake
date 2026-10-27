@@ -4,19 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102d3a">
-  <title>VeriCall · Análisis de deepfakes</title>
+  <title>VeriCall · Verificación de videollamadas</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
   <script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="/" aria-label="VeriCall, inicio"><span class="brand-symbol">V</span>VeriCall<span class="version">LAB</span></a>
-  <div class="top-actions"><span id="model-status" class="status"><i></i>Verificando modelo</span><a href="#history">Bitácora ↗</a></div>
+  <div class="top-actions"><span id="model-status" class="status"><i></i>Verificando modelo</span><span id="integrity-status" class="status"><i></i>Bitácora</span><a href="#history">Bitácora ↗</a></div>
 </header>
 <main>
-  <div class="intro"><p class="eyebrow">VERIFICACIÓN VISUAL · DECISIONES TRAZABLES</p><h1>Más evidencia.<br><span>Mejores decisiones.</span></h1><p class="lead">Analiza señales de manipulación facial en un video y revisa su impacto en una solicitud de transferencia.</p></div>
+  <div class="intro"><p class="eyebrow">VERIFICACIÓN EN VIVO · DECISIONES TRAZABLES</p><h1>¿Es real quien te pide el pago?<br><span>Compruébalo durante la llamada.</span></h1><p class="lead">VeriCall analiza el rostro del interlocutor mientras habla y, cuando solicita una transferencia, recomienda autorizarla, verificarla por otro canal o bloquearla, con razones registradas.</p></div>
   <div id="global-error" class="error" role="alert" hidden></div>
-  <div class="workspace">
+  <div class="mode-switch" role="tablist" aria-label="Modo de trabajo"><button type="button" class="active" id="mode-live" role="tab" aria-selected="true"><i class="rec-dot"></i>Llamada en vivo</button><button type="button" id="mode-recording" role="tab" aria-selected="false">Analizar grabación</button></div>
+
+  <div id="live-workspace" class="workspace">
+    <section class="panel source-panel">
+      <div class="section-title"><span class="step">01</span><h2>Conecta la llamada</h2></div>
+      <fieldset id="live-setup">
+        <div class="tabs three" role="tablist" aria-label="Fuente de la llamada"><button type="button" class="active" data-source="simulated" role="tab" aria-selected="true">Simulación</button><button type="button" data-source="camera" role="tab" aria-selected="false">Cámara</button><button type="button" data-source="screen" role="tab" aria-selected="false">Zoom / Meet</button></div>
+        <div data-source-panel="simulated"><p class="hint">Elige quién te llamará. Las versiones manipuladas simulan a un atacante que suplanta al directivo.</p><div id="live-sample-grid" class="sample-grid"></div><label class="drop-zone compact-drop" for="live-file"><strong>O usa un video propio</strong><span>MP4, MOV o WebM. Se reproduce solo en tu navegador; no se sube.</span><input id="live-file" type="file" accept=".mp4,.mov,.webm,video/*"></label><p id="live-file-name" class="hint" hidden></p></div>
+        <div data-source-panel="camera" hidden><p class="hint">Usa tu cámara web como interlocutor real. Sirve para mostrar cómo se comporta el sistema con una persona auténtica.</p></div>
+        <div data-source-panel="screen" hidden><p class="hint">Comparte la ventana de Zoom, Meet o Teams donde aparece quien llama. VeriCall analiza esa ventana igual que lo haría una integración con la plataforma.</p></div>
+        <label class="field">Quién dice ser el interlocutor<input id="caller" type="text" maxlength="80" value="Carlos Ruiz · Director financiero"></label>
+        <label class="check consent"><input id="live-consent" type="checkbox"><span>Los participantes autorizaron el análisis de su imagen en esta llamada (Ley 1581 de 2012). No se guardan imágenes, solo señales.</span></label>
+      </fieldset>
+      <button id="live-start" class="primary" type="button">Iniciar monitoreo <span>→</span></button>
+      <button id="live-end" class="primary danger" type="button" hidden>Finalizar llamada <span>■</span></button>
+      <hr>
+      <form id="live-transfer-form">
+        <fieldset id="live-transfer-fields" disabled>
+          <div class="section-title compact"><span class="step">02</span><h2>Solicitud de transferencia</h2></div>
+          <p class="hint">Cuando el interlocutor pida un pago, regístralo aquí. VeriCall lo evalúa con la evidencia acumulada en la llamada.</p>
+          <div class="input-grid"><label>Monto solicitado<input name="amount" type="number" min="0.01" max="1000000000000" step="0.01" value="500000" required></label><label>Límite del cliente<input name="limit" type="number" min="0.01" max="1000000000000" step="0.01" value="1000000" required></label></div>
+          <label class="check"><input name="new_beneficiary" type="checkbox" value="yes"><span>La cuenta del beneficiario es nueva</span></label>
+          <label class="field">Analista responsable<input name="analyst" type="text" maxlength="80" value="Analista de tesorería"></label>
+          <p id="evidence-gate" class="gate">Inicia la llamada para reunir evidencia.</p>
+          <button class="primary" type="submit">Evaluar transferencia <span>→</span></button>
+        </fieldset>
+      </form>
+    </section>
+    <div class="analysis-column">
+      <section class="panel call-panel">
+        <div id="call-stage" class="call-stage">
+          <video id="live-video" playsinline muted></video>
+          <canvas id="live-overlay" aria-hidden="true"></canvas>
+          <div id="call-placeholder" class="call-placeholder"><span class="empty-mark">◎</span>Inicia el monitoreo para conectar la llamada</div>
+          <div class="call-hud" hidden id="call-hud"><span class="live-pill"><i></i>EN VIVO <b id="call-clock">00:00</b></span><span id="live-badge" class="badge neutral">Reuniendo evidencia</span></div>
+          <div class="call-caller" hidden id="call-caller"><small>Dice ser</small><strong id="call-caller-name"></strong></div>
+          <div id="incoming" class="incoming" hidden><div class="ring"><span class="brand-symbol">V</span></div><p>Videollamada entrante</p><strong id="incoming-name"></strong><div><button id="incoming-accept" type="button" class="accept-call">Contestar</button><button id="incoming-decline" type="button" class="decline-call">Rechazar</button></div></div>
+        </div>
+        <div id="live-alert" class="alert-banner" role="alert" hidden><strong>Alerta: posible deepfake en esta llamada.</strong> La señal de manipulación es alta en los últimos segundos. No autorices pagos solicitados en esta llamada sin verificar por otro canal.</div>
+        <div class="signal"><div><span>Señal de manipulación · últimos <span id="window-seconds">8</span> s</span><strong id="live-score">—</strong></div><div class="meter"><span id="live-meter"></span></div><p id="live-status-text" class="hint">Salida del modelo sin calibrar. Una señal baja no verifica la identidad.</p></div>
+        <div class="metrics"><div><strong id="live-frames">0</strong><span>cuadros analizados</span></div><div><strong id="live-coverage">—</strong><span>cobertura facial</span></div><div><strong id="live-latency">—</strong><span>por cuadro, en CPU local</span></div></div>
+        <div class="chart-heading"><h3>Señal durante la llamada</h3><span>Últimos 2 minutos · cada punto es un cuadro</span></div>
+        <svg id="live-timeline" viewBox="0 0 720 160" role="img" aria-label="Señal de manipulación por cuadro durante la llamada"></svg>
+        <div class="chart-legend"><span><i class="dot low"></i>Señal baja</span><span><i class="dot medium"></i>Zona incierta</span><span><i class="dot high"></i>Señal alta</span></div>
+        <h3 class="events-title">Eventos de la llamada</h3>
+        <ol id="call-events" class="call-events"><li class="muted">Sin eventos todavía.</li></ol>
+      </section>
+      <div id="live-decisions" class="decision-list"></div>
+    </div>
+  </div>
+
+  <div id="recording-workspace" class="workspace" hidden>
     <section class="panel source-panel">
       <div class="section-title"><span class="step">01</span><h2>Prepara el análisis</h2></div>
       <form id="analysis-form">
@@ -29,7 +80,7 @@
           <p class="hint">Estos datos modifican el riesgo del pago, no la detección del video.</p>
           <div class="input-grid"><label>Monto solicitado<input id="amount" name="amount" type="number" min="0.01" max="1000000000000" step="0.01" value="500000" required></label><label>Límite del cliente<input id="limit" name="limit" type="number" min="0.01" max="1000000000000" step="0.01" value="1000000" required></label></div>
           <label class="check"><input name="new_beneficiary" type="checkbox" value="yes"><span>La cuenta del beneficiario es nueva</span></label>
-          <label class="check"><input name="alternate_verified" type="checkbox" value="yes"><span>Ya verifiqué la identidad por un canal independiente<small>Declaración manual del analista.</small></span></label>
+          <label class="field">Analista responsable<input name="analyst" type="text" maxlength="80" value="Analista de tesorería"></label>
           <label class="check consent"><input name="consent" type="checkbox" value="yes" required><span>Tengo autorización para analizar este video y acepto el uso académico de las muestras.</span></label>
           <button id="analyze-button" class="primary" type="submit">Analizar video <span>→</span></button>
         </fieldset>
@@ -46,13 +97,27 @@
         <div id="reference-comparison" class="comparison" hidden></div>
         <div class="chart-heading"><h3>Señal a lo largo del video</h3><span>Haz clic en un punto para ir a ese instante</span></div><svg id="timeline" viewBox="0 0 720 160" role="img" aria-label="Puntuación de manipulación por instante analizado"></svg>
         <div class="chart-legend"><span><i class="dot low"></i>Señal baja</span><span><i class="dot medium"></i>Zona incierta</span><span><i class="dot high"></i>Señal alta</span></div>
-        <div id="payment-decision" class="payment-decision"><p class="eyebrow">RECOMENDACIÓN PARA LA TRANSFERENCIA</p><div class="decision-heading"><h3 id="action-title"></h3><strong id="risk-score"></strong></div><ul id="reasons"></ul><p class="hint">Recomendación de demostración. No ejecuta pagos ni confirma por sí sola la identidad del solicitante.</p></div>
+        <div id="recording-decision"></div>
         <details><summary>Ver datos técnicos y trazabilidad</summary><dl id="technical-data"></dl><div class="table-scroll"><table><thead><tr><th>Instante</th><th>Rostros</th><th>Señal</th><th>Inspección</th></tr></thead><tbody id="frame-table"></tbody></table></div></details>
       </section>
     </div>
   </div>
-  <section id="history" class="panel history-panel"><div class="section-title"><h2>Bitácora de decisiones</h2><button id="refresh-history" class="text-button" type="button">Actualizar ↻</button></div><p class="hint">Resultados y motivos guardados localmente. Los videos y recortes de rostros no se guardan en la bitácora.</p><div class="table-scroll"><table><thead><tr><th>Fecha · Bogotá</th><th>Entrada</th><th>Señal visual</th><th>Decisión</th><th>Informe</th></tr></thead><tbody id="history-body"></tbody></table></div></section>
-  <footer><strong>VeriCall · Proyecto académico</strong><p>Detector visual experimental. Puede producir falsos positivos y omitir deepfakes. No analiza audio ni sincronía labial. Las muestras públicas sirven para explorar esos límites.</p><a href="https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model" target="_blank" rel="noopener">Ficha del modelo ↗</a></footer>
+
+  <section id="history" class="panel history-panel"><div class="section-title"><h2>Bitácora de decisiones</h2><button id="refresh-history" class="text-button" type="button">Actualizar ↻</button></div><p class="hint">Resultados, motivos y decisiones humanas guardados localmente en una cadena de hashes: si alguien edita o borra un registro intermedio, la verificación falla. Los videos y recortes de rostros nunca se guardan. <span id="integrity-detail"></span></p><div class="table-scroll"><table><thead><tr><th>Fecha · Bogotá</th><th>Origen</th><th>Señal visual</th><th>Recomendación</th><th>Decisión final</th><th>Informe</th></tr></thead><tbody id="history-body"></tbody></table></div></section>
+  <footer><strong>VeriCall · Proyecto académico</strong><p>Detector visual experimental. Puede producir falsos positivos y omitir deepfakes. No analiza audio ni sincronía labial. Los roles se declaran sin autenticación. Las muestras públicas sirven para explorar esos límites.</p><a href="https://huggingface.co/prithivMLmods/Deep-Fake-Detector-v2-Model" target="_blank" rel="noopener">Ficha del modelo ↗</a></footer>
 </main>
+
+<template id="resolution-template">
+  <form class="resolution" novalidate>
+    <p class="eyebrow">DECISIÓN HUMANA FINAL</p>
+    <p class="rule hint"></p>
+    <div class="input-grid"><label>Rol<select name="role"><option value="analista">Analista de tesorería</option><option value="seguridad">Área de seguridad</option></select></label><label>Nombre<input name="actor" type="text" maxlength="80" required></label></div>
+    <label class="check"><input name="alternate_verified" type="checkbox" value="yes"><span>Verifiqué la solicitud por un canal alterno<small>Por ejemplo, llamada al número registrado del directivo.</small></span></label>
+    <label class="field">Canal usado y resultado<input name="channel" type="text" maxlength="200" placeholder="Ej.: llamé al +57 300… registrado; confirmó el pago"></label>
+    <p class="sla hint"></p>
+    <p class="form-error" role="alert" hidden></p>
+    <div class="resolution-actions"><button type="button" class="release" data-outcome="release">Liberar pago</button><button type="button" class="reject" data-outcome="reject">Rechazar pago</button></div>
+  </form>
+</template>
 </body>
 </html>

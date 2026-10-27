@@ -31,3 +31,11 @@ Las pruebas rápidas inyectan un analizador controlado cuando verifican API, col
 ## Lo que no se ha validado
 
 No se ha medido desempeño con una muestra independiente grande, nuevos generadores, ataques en llamadas en vivo, audio, grupos demográficos ni dispositivos/redes variados. No se prueban aquí despliegues multiusuario ni integración bancaria. El resultado de seis clips no acredita las metas del entregable 2 ni seguridad para autorizar transferencias reales.
+
+## Actualización v3: monitoreo en vivo (25 de octubre de 2026)
+
+`python -m pytest -q --run-model`: **31 pruebas aprobadas**. Cubren sesiones en vivo con consentimiento, rechazo de cuadros inválidos, alerta, bloqueo, el ataque que empieza a mitad de la llamada (decide la ventana reciente), autorización de un interlocutor real solo con evidencia suficiente, reglas de resolución (canal alterno, rol de seguridad, segregación, SLA), resolución única, cadena de hashes y detección de alteración, migración de la tabla v2 e inferencia real sobre cuadros públicos.
+
+`scripts/browser_smoke.py` en Chrome: llamada simulada con deepfake (alerta → bloqueo → intento de liberación por el analista rechazado por la regla → rechazo por seguridad), cámara falsa sin rostro (sin autorización), modo de grabación completo, bitácora íntegra y vista móvil.
+
+Medición en vivo a 2 cuadros/s sobre los clips completos: originales 04 y 05 → autorizar (19); original 01 → verificar (35); manipulados 01 → verificar (70; ≥ 75 durante la alerta, lo que produce bloqueo), 05 → verificar (60) y **04 → autorizar (22): falso negativo**. No se probó con webcam ni con una llamada real de Zoom en este equipo.
